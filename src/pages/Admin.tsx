@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { auth, loginWithGoogle, logout } from '../firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { subscribeToServices, subscribeToGallery, addGalleryImage, deleteGalleryImage, saveService, deleteService, subscribeToLeads, markLeadRead, deleteLead } from '../lib/cms';
-import { Plus, Trash2, LogOut, CheckCircle2, Image as ImageIcon, Settings2, X, AlertTriangle, LayoutDashboard, Loader2, ArrowRight, Inbox, MailOpen } from 'lucide-react';
+import { subscribeToServices, subscribeToGallery, addGalleryImage, deleteGalleryImage, saveService, deleteService, subscribeToLeads, markLeadRead, deleteLead, seedDefaults } from '../lib/cms';
+import { Plus, Trash2, LogOut, CheckCircle2, Image as ImageIcon, Settings2, X, AlertTriangle, LayoutDashboard, Loader2, ArrowRight, Inbox, MailOpen, DownloadCloud } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 const ALLOWED_EMAILS = ['mdabdullahislamrafid552@gmail.com'];
@@ -19,6 +19,19 @@ export default function Admin() {
   // UI States
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [isSeeding, setIsSeeding] = useState(false);
+
+  const handleSeedData = async () => {
+    setIsSeeding(true);
+    try {
+      await seedDefaults();
+      showToast('Live site data synchronized!');
+    } catch (e) {
+      showToast('Failed to sync content', 'error');
+    }
+    setIsSeeding(false);
+  };
+
   const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; type: 'gallery' | 'service' | 'lead'; id: string } | null>(null);
 
   // New Image Form
@@ -73,12 +86,9 @@ export default function Admin() {
 
   if (!user) {
     return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center pt-24 px-6 relative">
-        <div className="max-w-md w-full bg-[#111] border border-white/5 p-12 text-center rounded-sm shadow-2xl relative z-10">
-          <h1 className="text-3xl font-serif text-white mb-4">Admin Access</h1>
-          <p className="text-[#d1d1d1]/70 mb-8 font-light">Sign in with your administrator account to manage website content.</p>
-          <button onClick={loginWithGoogle} className="btn-primary w-full">Sign in with Google</button>
-        </div>
+      <div className="min-h-screen bg-[#111] flex flex-col items-center justify-center relative cursor-pointer" onClick={loginWithGoogle}>
+        <div className="absolute inset-0 bg-transparent z-10" title="Click anywhere to authenticate"></div>
+        <div className="opacity-0">Authenticate</div>
       </div>
     );
   }
@@ -196,38 +206,44 @@ export default function Admin() {
         )}
       </AnimatePresence>
 
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b border-white/10 pb-6 gap-6">
-        <div>
-          <h1 className="text-4xl font-serif text-white mb-2">Workspace</h1>
-          <p className="text-[#d1d1d1]/60 text-sm flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> {user.email}</p>
+      <div className="flex flex-col md:flex-row gap-12">
+        <div className="md:w-64 shrink-0 flex flex-col md:border-r border-white/5 md:pr-8 md:min-h-[70vh]">
+          <div className="mb-12">
+            <h1 className="text-3xl font-serif text-white mb-2">Workspace</h1>
+            <p className="text-[#d1d1d1]/50 text-xs flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> 
+              <span className="truncate">{user.email}</span>
+            </p>
+          </div>
+          
+          <nav className="flex md:flex-col gap-2 overflow-x-auto pb-4 md:pb-0 hide-scrollbar scroll-smooth">
+            <button onClick={() => setActiveTab('overview')} className={`flex items-center gap-3 px-4 py-3 rounded-sm transition-all whitespace-nowrap text-sm font-medium ${activeTab === 'overview' ? 'bg-white text-black' : 'text-white/60 hover:bg-white/5 hover:text-white'}`}>
+              <LayoutDashboard size={18} /> Overview
+            </button>
+            <button onClick={() => setActiveTab('inbox')} className={`flex items-center gap-3 px-4 py-3 rounded-sm transition-all whitespace-nowrap text-sm font-medium relative ${activeTab === 'inbox' ? 'bg-white text-black' : 'text-white/60 hover:bg-white/5 hover:text-white'}`}>
+              <Inbox size={18} /> Inbox
+              {unreadLeadsCount > 0 && (
+                <span className={`ml-auto px-2 py-0.5 text-[10px] rounded-full font-bold ${activeTab === 'inbox' ? 'bg-black text-white' : 'bg-red-500 text-white'}`}>
+                  {unreadLeadsCount}
+                </span>
+              )}
+            </button>
+            <button onClick={() => setActiveTab('gallery')} className={`flex items-center gap-3 px-4 py-3 rounded-sm transition-all whitespace-nowrap text-sm font-medium ${activeTab === 'gallery' ? 'bg-white text-black' : 'text-white/60 hover:bg-white/5 hover:text-white'}`}>
+              <ImageIcon size={18} /> Gallery
+            </button>
+            <button onClick={() => setActiveTab('services')} className={`flex items-center gap-3 px-4 py-3 rounded-sm transition-all whitespace-nowrap text-sm font-medium ${activeTab === 'services' ? 'bg-white text-black' : 'text-white/60 hover:bg-white/5 hover:text-white'}`}>
+              <Settings2 size={18} /> Services
+            </button>
+            
+            <div className="h-px bg-white/5 my-4 mx-4 hidden md:block"></div>
+            
+            <button onClick={logout} className="flex items-center gap-3 px-4 py-3 rounded-sm transition-all whitespace-nowrap text-sm font-medium text-white/40 hover:bg-red-500/10 hover:text-red-400 mt-auto md:mt-0">
+              <LogOut size={18} /> Sign Out
+            </button>
+          </nav>
         </div>
-        
-        <div className="flex items-center gap-4 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 hide-scrollbar">
-          <button onClick={() => setActiveTab('overview')} className={`flex items-center gap-2 px-4 py-2 rounded-sm border transition-colors whitespace-nowrap ${activeTab === 'overview' ? 'bg-white text-black border-white' : 'bg-[#111] text-white/70 border-white/10 hover:border-white/30'}`}>
-            <LayoutDashboard size={16} /> Overview
-          </button>
-          <button onClick={() => setActiveTab('gallery')} className={`flex items-center gap-2 px-4 py-2 rounded-sm border transition-colors whitespace-nowrap ${activeTab === 'gallery' ? 'bg-white text-black border-white' : 'bg-[#111] text-white/70 border-white/10 hover:border-white/30'}`}>
-            <ImageIcon size={16} /> Gallery
-          </button>
-          <button onClick={() => setActiveTab('services')} className={`flex items-center gap-2 px-4 py-2 rounded-sm border transition-colors whitespace-nowrap ${activeTab === 'services' ? 'bg-white text-black border-white' : 'bg-[#111] text-white/70 border-white/10 hover:border-white/30'}`}>
-            <Settings2 size={16} /> Services
-          </button>
-          <button onClick={() => setActiveTab('inbox')} className={`flex items-center gap-2 px-4 py-2 rounded-sm border transition-colors whitespace-nowrap relative ${activeTab === 'inbox' ? 'bg-white text-black border-white' : 'bg-[#111] text-white/70 border-white/10 hover:border-white/30'}`}>
-            <Inbox size={16} /> Leads
-            {unreadLeadsCount > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-red-500 text-[10px] text-white flex items-center justify-center rounded-full font-medium">
-                {unreadLeadsCount}
-              </span>
-            )}
-          </button>
-          <div className="w-[1px] h-8 bg-white/10 mx-2 hidden md:block"></div>
-          <button onClick={logout} className="flex items-center gap-2 text-white/40 hover:text-red-400 transition-colors whitespace-nowrap ml-auto md:ml-0">
-            <LogOut size={16} /> Logout
-          </button>
-        </div>
-      </div>
 
-      <div className="space-y-12">
+        <div className="flex-grow pt-4 md:pt-0">
         {activeTab === 'overview' && (
           <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-8">
             <h2 className="text-3xl font-serif text-white">Welcome back, Admin.</h2>
@@ -263,6 +279,25 @@ export default function Admin() {
                 <div className="text-xs uppercase tracking-widest text-white/40 group-hover:text-white transition-colors flex items-center gap-2">Open Services <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" /></div>
               </div>
             </div>
+
+            {services.length === 0 && gallery.length === 0 && (
+              <div className="bg-yellow-500/10 border border-yellow-500/20 p-8 rounded-sm mt-8">
+                <h3 className="text-xl text-yellow-500 mb-2 font-serif flex items-center gap-2">
+                  <AlertTriangle size={20} /> Initial Setup Required
+                </h3>
+                <p className="text-[#d1d1d1]/80 text-sm mb-6 max-w-xl">
+                  It looks like your admin database is completely empty. Click the button below to instantly import all default site content (gallery images and services) into the editable dashboard.
+                </p>
+                <button 
+                  onClick={handleSeedData} 
+                  disabled={isSeeding}
+                  className="bg-yellow-500 text-black px-6 py-2.5 font-medium hover:bg-yellow-400 transition-colors flex items-center gap-2 text-sm"
+                >
+                  {isSeeding ? <Loader2 size={16} className="animate-spin" /> : <DownloadCloud size={16} />} 
+                  {isSeeding ? 'Importing Content...' : 'Sync Live Site Content'}
+                </button>
+              </div>
+            )}
           </motion.section>
         )}
         
@@ -598,6 +633,7 @@ export default function Admin() {
           </motion.section>
         )}
 
+      </div>
       </div>
     </div>
   );
