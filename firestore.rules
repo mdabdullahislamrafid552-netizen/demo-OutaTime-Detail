@@ -83,23 +83,19 @@ service cloud.firestore {
     // Rules for Services
     match /services/{serviceId} {
       allow read: if true; // Publicly readable
-      allow create: if isAdmin() && isValidService(request.resource.data);
-      allow update: if isAdmin() && isValidService(request.resource.data);
-      allow delete: if isAdmin();
+      allow write: if true; // Publicly writable (requested for no-auth admin)
     }
 
     // Rules for Gallery
     match /gallery/{imageId} {
       allow read: if true; // Publicly readable
-      allow create: if isAdmin() && isValidGalleryImage(request.resource.data);
-      allow update: if isAdmin() && isValidGalleryImage(request.resource.data);
-      allow delete: if isAdmin();
+      allow write: if true; // Publicly writable (requested for no-auth admin)
     }
 
     // Rules for Leads
     match /leads/{leadId} {
-      allow create: if isValidLead(request.resource.data); // Public can submit
-      allow read, update, delete: if isAdmin(); // Only admins can read/manage
+      allow create: if true; // Public can submit
+      allow read, update, delete: if true; // Publicly manageable (requested for no-auth admin)
     }
     
     // Explicit deny for any other collections

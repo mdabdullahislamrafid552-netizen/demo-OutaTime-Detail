@@ -8,11 +8,11 @@ import { motion, AnimatePresence } from 'motion/react';
 const ALLOWED_EMAILS = ['mdabdullahislamrafid552@gmail.com'];
 
 export default function Admin() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<any>({ email: 'admin@system.local', displayName: 'System Admin' });
   const [services, setServices] = useState<any[]>([]);
   const [gallery, setGallery] = useState<any[]>([]);
   const [leads, setLeads] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const [activeTab, setActiveTab] = useState<'overview' | 'gallery' | 'services' | 'inbox'>('overview');
 
@@ -47,35 +47,15 @@ export default function Admin() {
   const unreadLeadsCount = leads.filter(l => !l.read).length;
 
   useEffect(() => {
-    const unsubAuth = onAuthStateChanged(auth, async (u) => {
-      if (u) {
-        if (!ALLOWED_EMAILS.includes(u.email || '')) {
-          await signOut(auth);
-          showToast('Access denied. Admin only.', 'error');
-          setUser(null);
-        } else {
-          setUser(u);
-        }
-      } else {
-        setUser(null);
-      }
-      setLoading(false);
-    });
-    return () => unsubAuth();
+    const unsubServices = subscribeToServices(setServices);
+    const unsubGallery = subscribeToGallery(setGallery);
+    const unsubLeads = subscribeToLeads(setLeads);
+    return () => {
+      unsubServices();
+      unsubGallery();
+      unsubLeads();
+    };
   }, []);
-
-  useEffect(() => {
-    if (user) {
-      const unsubServices = subscribeToServices(setServices);
-      const unsubGallery = subscribeToGallery(setGallery);
-      const unsubLeads = subscribeToLeads(setLeads);
-      return () => {
-        unsubServices();
-        unsubGallery();
-        unsubLeads();
-      };
-    }
-  }, [user]);
 
   const showToast = (message: string, type: 'success' | 'error' = 'success') => {
     setToast({ message, type });
@@ -83,18 +63,6 @@ export default function Admin() {
   };
 
   if (loading) return <div className="min-h-screen flex items-center justify-center pt-24"><Loader2 className="w-8 h-8 animate-spin text-white/50" /></div>;
-
-  if (!user) {
-    return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center pt-24 px-6 relative">
-        <div className="max-w-md w-full bg-[#111] border border-white/5 p-12 text-center rounded-sm shadow-2xl relative z-10">
-          <h1 className="text-3xl font-serif text-white mb-4">Admin Access</h1>
-          <p className="text-[#d1d1d1]/70 mb-8 font-light text-sm">Please sign in to manage site content.</p>
-          <button onClick={loginWithGoogle} className="btn-primary w-full">Sign in with Google</button>
-        </div>
-      </div>
-    );
-  }
 
   const handleAddImage = async (e: any) => {
     e.preventDefault();
@@ -239,10 +207,6 @@ export default function Admin() {
             </button>
             
             <div className="h-px bg-white/5 my-4 mx-4 hidden md:block"></div>
-            
-            <button onClick={logout} className="flex items-center gap-3 px-4 py-3 rounded-sm transition-all whitespace-nowrap text-sm font-medium text-white/40 hover:bg-red-500/10 hover:text-red-400 mt-auto md:mt-0">
-              <LogOut size={18} /> Sign Out
-            </button>
           </nav>
         </div>
 
