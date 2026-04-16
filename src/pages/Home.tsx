@@ -1,10 +1,68 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { ShieldCheck, Star, Droplets, Sparkles, ArrowRight, Award, MapPin, Shield, Wind, Settings2, Wrench } from 'lucide-react';
+import { subscribeToServices } from '../lib/cms';
 
 const ease = [0.16, 1, 0.3, 1];
 
+const iconMap: Record<string, any> = {
+  Sparkles, Star, Droplets, Wind, Settings2, Wrench
+};
+
+const defaultServices = [
+  {
+    title: 'Paint Reconditioning',
+    desc: 'Certified correction to remove swirls, scratches, and oxidation.',
+    icon: 'Sparkles',
+    img: 'https://www.clearpro.com/wp-content/uploads/2024/07/how-to-restore-paint-on-a-car-2.webp'
+  },
+  {
+    title: 'Full Detail',
+    desc: 'Comprehensive interior and exterior reset for a showroom finish.',
+    icon: 'Star',
+    img: 'https://sharpdetailsilverspring.com/images/car2.jpg'
+  },
+  {
+    title: 'Exterior Detail',
+    desc: 'Deep wash using spot-free water for a flawless finish, decontamination, and premium sealant.',
+    icon: 'Droplets',
+    img: 'https://www.apexautoperformance.com/wp-content/uploads/2023/02/What-is-Exterior-Detailing-of-a-Car.jpg'
+  },
+  {
+    title: 'Interior Detail',
+    desc: 'Deep cleaning, stain treatment, and surface restoration for a factory-fresh feel.',
+    icon: 'Wind',
+    img: 'https://shineprosnh.com/wp-content/uploads/2024/07/interior-detail.jpeg'
+  },
+  {
+    title: 'Trim Restoration',
+    desc: 'Permanent ceramic-infused restoration of faded exterior plastics.',
+    icon: 'Settings2',
+    img: 'https://www.carzspa.com/wp-content/uploads/2021/01/trim-restoration-carzspa.jpg'
+  },
+  {
+    title: 'Rock Chip Repair',
+    desc: 'Precise color-matched touch-up to prevent rust and improve appearance.',
+    icon: 'Wrench',
+    img: 'https://www.motorbiscuit.com/wp-content/uploads/2022/07/Chrisfix-DIY-Rock-Chip-Repair-Demo-Video.jpg'
+  }
+];
+
 export default function Home() {
+  const [services, setServices] = useState<any[]>([]);
+
+  useEffect(() => {
+    const unsub = subscribeToServices((data) => {
+      if (data.length > 0) {
+        setServices(data);
+      } else {
+        setServices(defaultServices); // Fallback
+      }
+    });
+    return () => unsub();
+  }, []);
+
   return (
     <div className="w-full">
       {/* Hero Section */}
@@ -222,46 +280,11 @@ export default function Home() {
             </motion.div>
 
             <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4 md:gap-6 pb-12 -mx-6 px-6 md:mx-0 md:px-0">
-              {[
-                {
-                  title: 'Paint Reconditioning',
-                  desc: 'Certified correction to remove swirls, scratches, and oxidation.',
-                  icon: Sparkles,
-                  img: 'https://www.clearpro.com/wp-content/uploads/2024/07/how-to-restore-paint-on-a-car-2.webp'
-                },
-                {
-                  title: 'Full Detail',
-                  desc: 'Comprehensive interior and exterior reset for a showroom finish.',
-                  icon: Star,
-                  img: 'https://sharpdetailsilverspring.com/images/car2.jpg'
-                },
-                {
-                  title: 'Exterior Detail',
-                  desc: 'Deep wash, decontamination, and premium sealant application.',
-                  icon: Droplets,
-                  img: 'https://www.apexautoperformance.com/wp-content/uploads/2023/02/What-is-Exterior-Detailing-of-a-Car.jpg'
-                },
-                {
-                  title: 'Interior Detail',
-                  desc: 'Deep cleaning, steam, and extraction to restore a factory-fresh feel.',
-                  icon: Wind,
-                  img: 'https://shineprosnh.com/wp-content/uploads/2024/07/interior-detail.jpeg'
-                },
-                {
-                  title: 'Trim Restoration',
-                  desc: 'Permanent ceramic-infused restoration of faded exterior plastics.',
-                  icon: Settings2,
-                  img: 'https://www.carzspa.com/wp-content/uploads/2021/01/trim-restoration-carzspa.jpg'
-                },
-                {
-                  title: 'Rock Chip Repair',
-                  desc: 'Precise color-matched touch-up to prevent rust and improve appearance.',
-                  icon: Wrench,
-                  img: 'https://www.motorbiscuit.com/wp-content/uploads/2022/07/Chrisfix-DIY-Rock-Chip-Repair-Demo-Video.jpg'
-                }
-              ].map((service, i) => (
+              {services.map((service, i) => {
+                const Icon = iconMap[service.icon] || Sparkles;
+                return (
                 <motion.div 
-                  key={i}
+                  key={service.id || i}
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
@@ -279,7 +302,7 @@ export default function Home() {
                     
                     <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-between z-10">
                       <div className="w-12 h-12 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 flex items-center justify-center transform transition-all duration-700 group-hover:scale-110 group-hover:bg-white/20 group-hover:border-white/30">
-                        <service.icon size={20} className="text-white" strokeWidth={1.5} />
+                        <Icon size={20} className="text-white" strokeWidth={1.5} />
                       </div>
                       
                       <div className="transform transition-transform duration-700 ease-[0.16,1,0.3,1] md:translate-y-12 group-hover:translate-y-0">
@@ -298,7 +321,7 @@ export default function Home() {
                     </div>
                   </div>
                 </motion.div>
-              ))}
+              )})}
             </div>
           </div>
         </div>

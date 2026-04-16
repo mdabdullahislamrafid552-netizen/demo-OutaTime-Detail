@@ -1,41 +1,43 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { subscribeToServices } from '../lib/cms';
 
 const ease = [0.16, 1, 0.3, 1];
 
-const services = [
+const defaultServices = [
   {
     id: 'paint-reconditioning',
     title: 'Paint Reconditioning',
     subtitle: 'Koch Chemie Certified Correction',
     description: 'A meticulous process to permanently remove surface imperfections like swirl marks, scratches, water spots, and oxidation. Restores clarity, depth, and gloss to your vehicle\'s clear coat.',
     features: ['Multi-stage machine compounding & polishing', 'Koch Chemie specialized abrasives', 'Removal of 80-95% of defects', 'Prepares surface for ceramic coating'],
-    image: 'https://www.clearpro.com/wp-content/uploads/2024/07/how-to-restore-paint-on-a-car-2.webp'
+    img: 'https://www.clearpro.com/wp-content/uploads/2024/07/how-to-restore-paint-on-a-car-2.webp'
   },
   {
     id: 'full-detail',
     title: 'Full Detail',
     subtitle: 'The Complete Reset',
     description: 'Our most comprehensive package. A thorough cleaning, decontamination, and protection of both the interior and exterior of your vehicle. Leaves no surface untouched.',
-    features: ['Deep exterior wash & clay bar treatment', 'Interior vacuum, steam & extraction', 'Leather conditioning', 'Premium paint sealant applied'],
-    image: 'https://sharpdetailsilverspring.com/images/car2.jpg'
+    features: ['Deep exterior wash & spot-free rinse', 'Deep interior cleaning & stain treatment', 'Leather conditioning', 'Premium paint sealant applied'],
+    img: 'https://sharpdetailsilverspring.com/images/car2.jpg'
   },
   {
     id: 'exterior-detail',
     title: 'Exterior Detail',
     subtitle: 'Gloss & Protection',
-    description: 'A deep cleanse of your vehicle\'s exterior to remove embedded contaminants, followed by a high-quality sealant to protect the paint and enhance gloss.',
-    features: ['Foam cannon pre-soak & hand wash', 'Iron decontamination & clay bar', 'Wheel faces & barrels cleaned', '6-month paint sealant'],
-    image: 'https://www.apexautoperformance.com/wp-content/uploads/2023/02/What-is-Exterior-Detailing-of-a-Car.jpg'
+    description: 'A deep cleanse of your vehicle\'s exterior utilizing spot-free water to prevent water spots and ensure a flawless finish, followed by a high-quality sealant.',
+    features: ['Hand wash with spot-free water', 'Iron decontamination & clay bar', 'Wheel faces & barrels cleaned', '6-month paint sealant'],
+    img: 'https://www.apexautoperformance.com/wp-content/uploads/2023/02/What-is-Exterior-Detailing-of-a-Car.jpg'
   },
   {
     id: 'interior-detail',
     title: 'Interior Detail',
     subtitle: 'Sanitize & Restore',
-    description: 'A deep cleaning of all interior surfaces. We use steam and specialized cleaners to remove dirt, stains, and odors, restoring your cabin to a factory-fresh feel.',
-    features: ['Deep vacuuming of carpets & seats', 'Steam cleaning of all plastics & vinyl', 'Carpet & upholstery extraction', 'UV protection applied to dash'],
-    image: 'https://shineprosnh.com/wp-content/uploads/2024/07/interior-detail.jpeg'
+    description: 'A deep cleaning of all interior surfaces. We use specialized, safe cleaners to treat stains and restore your cabin to a factory-fresh feel.',
+    features: ['Deep vacuuming of carpets & seats', 'Surface restoration of plastics & vinyl', 'Targeted stain & odor treatment', 'UV protection applied to dash'],
+    img: 'https://shineprosnh.com/wp-content/uploads/2024/07/interior-detail.jpeg'
   },
   {
     id: 'trim-restoration',
@@ -43,7 +45,7 @@ const services = [
     subtitle: 'Revive Faded Plastics',
     description: 'Permanent restoration of faded, oxidized exterior plastic trim. We don\'t use temporary dressings; we use ceramic-infused restorers that bond to the plastic.',
     features: ['Deep cleaning of textured plastics', 'Ceramic trim coating application', 'Restores deep black factory look', 'Lasts 12-24 months'],
-    image: 'https://www.carzspa.com/wp-content/uploads/2021/01/trim-restoration-carzspa.jpg'
+    img: 'https://www.carzspa.com/wp-content/uploads/2021/01/trim-restoration-carzspa.jpg'
   },
   {
     id: 'rock-chip-repair',
@@ -51,11 +53,24 @@ const services = [
     subtitle: 'Prevent Rust & Damage',
     description: 'Precise color-matched touch-up of rock chips and deep scratches to prevent rust and improve the overall appearance of your vehicle\'s front end.',
     features: ['Color-matched OEM paint', 'Chemical leveling for smooth finish', 'Prevents clear coat failure', 'Significantly improves appearance'],
-    image: 'https://www.motorbiscuit.com/wp-content/uploads/2022/07/Chrisfix-DIY-Rock-Chip-Repair-Demo-Video.jpg'
+    img: 'https://www.motorbiscuit.com/wp-content/uploads/2022/07/Chrisfix-DIY-Rock-Chip-Repair-Demo-Video.jpg'
   }
 ];
 
 export default function Services() {
+  const [services, setServices] = useState<any[]>([]);
+
+  useEffect(() => {
+    const unsub = subscribeToServices((data) => {
+      if (data.length > 0) {
+        setServices(data);
+      } else {
+        setServices(defaultServices); // Fallback
+      }
+    });
+    return () => unsub();
+  }, []);
+
   return (
     <div className="w-full">
       {/* Header */}
@@ -103,7 +118,7 @@ export default function Services() {
                 >
                   <div className="relative aspect-[4/3] overflow-hidden rounded-sm group">
                     <img 
-                      src={service.image} 
+                      src={service.img} 
                       alt={service.title} 
                       className="w-full h-full object-cover transition-transform duration-[2s] ease-[0.16,1,0.3,1] group-hover:scale-105"
                       referrerPolicy="no-referrer"

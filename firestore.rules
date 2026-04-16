@@ -1,0 +1,110 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: services
+    // Document ID: [string]
+    // Fields:
+    //   - title: string
+    //   - subtitle: string (optional)
+    //   - desc: string (optional)
+    //   - description: string (optional)
+    //   - features: list of strings (optional)
+    //   - icon: string (optional)
+    //   - img: string (URL)
+    //   - order: number (optional)
+    //
+    // Collection: gallery
+    // Document ID: [string]
+    // Fields:
+    //   - url: string (URL)
+    //   - caption: string (optional)
+    //   - createdAt: number
+    //
+    // Collection: leads
+    // Document ID: [string]
+    // Fields:
+    //   - firstName: string
+    //   - lastName: string
+    //   - email: string
+    //   - vehicle: string (optional)
+    //   - service: string (optional)
+    //   - message: string (optional)
+    //   - createdAt: number
+    //   - read: boolean
+    //
+    // ===============================================================
+
+    // Helper Functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      // The default admin based on the user email
+      return isAuthenticated() && request.auth.token.email == "mdabdullahislamrafid552@gmail.com" && request.auth.token.email_verified == true;
+    }
+
+    function isValidUrl(url) {
+      return url is string && (url.matches("^https://.*") || url.matches("^http://.*"));
+    }
+
+    function isValidEmail(email) {
+      return email is string && email.matches('^.*@.*[.].*$');
+    }
+
+    function isValidService(data) {
+      return data.keys().hasAll(['title', 'img']) &&
+             data.title is string && data.title.size() > 0 && data.title.size() < 100 &&
+             isValidUrl(data.img) &&
+             (!('subtitle' in data) || (data.subtitle is string && data.subtitle.size() <= 100)) &&
+             (!('desc' in data) || (data.desc is string && data.desc.size() <= 300)) &&
+             (!('description' in data) || (data.description is string && data.description.size() <= 1000)) &&
+             (!('icon' in data) || (data.icon is string && data.icon.size() <= 50)) &&
+             (!('order' in data) || data.order is number) &&
+             (!('features' in data) || (data.features is list && data.features.size() <= 20));
+    }
+
+    function isValidGalleryImage(data) {
+      return data.keys().hasAll(['url', 'createdAt']) &&
+             isValidUrl(data.url) &&
+             data.createdAt is number &&
+             (!('caption' in data) || (data.caption is string && data.caption.size() <= 200));
+    }
+
+    function isValidLead(data) {
+      return data.keys().hasAll(['firstName', 'email', 'createdAt']);
+    }
+
+    // Rules for Services
+    match /services/{serviceId} {
+      allow read: if true; // Publicly readable
+      allow create: if isAdmin() && isValidService(request.resource.data);
+      allow update: if isAdmin() && isValidService(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    // Rules for Gallery
+    match /gallery/{imageId} {
+      allow read: if true; // Publicly readable
+      allow create: if isAdmin() && isValidGalleryImage(request.resource.data);
+      allow update: if isAdmin() && isValidGalleryImage(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    // Rules for Leads
+    match /leads/{leadId} {
+      allow create: if isValidLead(request.resource.data); // Public can submit
+      allow read, update, delete: if isAdmin(); // Only admins can read/manage
+    }
+    
+    // Explicit deny for any other collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -6,6 +6,7 @@ import Services from './pages/Services';
 import Gallery from './pages/Gallery';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Admin from './pages/Admin';
 import ScrollToTop from './components/utils/ScrollToTop';
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/dashboard-secure-8472" element={<Admin />} />
           </Routes>
         </main>
         <Footer />

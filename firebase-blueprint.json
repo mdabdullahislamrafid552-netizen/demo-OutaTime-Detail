@@ -1,0 +1,105 @@
+{
+  "entities": {
+    "Service": {
+      "title": "Service",
+      "description": "A detailing service offered to customers.",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The name of the service."
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "A short tag line or subtitle for the service."
+        },
+        "desc": {
+          "type": "string",
+          "description": "Short description for the home page."
+        },
+        "description": {
+          "type": "string",
+          "description": "Full description for the services page."
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "A list of features included in the service."
+        },
+        "icon": {
+          "type": "string",
+          "description": "The name of the Lucide icon to use."
+        },
+        "img": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the service image."
+        },
+        "order": {
+          "type": "number",
+          "description": "The order in which to display the service."
+        }
+      },
+      "required": ["title", "img"]
+    },
+    "GalleryImage": {
+      "title": "Gallery Image",
+      "description": "An image displayed in the gallery.",
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the image."
+        },
+        "caption": {
+          "type": "string",
+          "description": "Optional caption for the image."
+        },
+        "createdAt": {
+          "type": "number",
+          "description": "Timestamp of when the image was uploaded."
+        }
+      },
+      "required": ["url", "createdAt"]
+    },
+    "Lead": {
+      "title": "Lead",
+      "description": "A contact form submission.",
+      "type": "object",
+      "properties": {
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "vehicle": { "type": "string" },
+        "service": { "type": "string" },
+        "message": { "type": "string" },
+        "createdAt": { "type": "number" },
+        "read": { "type": "boolean" }
+      },
+      "required": ["firstName", "lastName", "email", "createdAt", "read"]
+    }
+  },
+  "firestore": {
+    "/services/{serviceId}": {
+      "schema": {
+        "$ref": "#/entities/Service"
+      },
+      "description": "Stores the detailing services."
+    },
+    "/gallery/{imageId}": {
+      "schema": {
+        "$ref": "#/entities/GalleryImage"
+      },
+      "description": "Stores the gallery images."
+    },
+    "/leads/{leadId}": {
+      "schema": {
+        "$ref": "#/entities/Lead"
+      },
+      "description": "Stores contact form submissions."
+    }
+  }
+}
