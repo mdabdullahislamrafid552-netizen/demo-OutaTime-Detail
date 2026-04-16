@@ -86,9 +86,12 @@ export default function Admin() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-[#111] flex flex-col items-center justify-center relative cursor-pointer" onClick={loginWithGoogle}>
-        <div className="absolute inset-0 bg-transparent z-10" title="Click anywhere to authenticate"></div>
-        <div className="opacity-0">Authenticate</div>
+      <div className="min-h-[70vh] flex flex-col items-center justify-center pt-24 px-6 relative">
+        <div className="max-w-md w-full bg-[#111] border border-white/5 p-12 text-center rounded-sm shadow-2xl relative z-10">
+          <h1 className="text-3xl font-serif text-white mb-4">Admin Access</h1>
+          <p className="text-[#d1d1d1]/70 mb-8 font-light text-sm">Please sign in to manage site content.</p>
+          <button onClick={loginWithGoogle} className="btn-primary w-full">Sign in with Google</button>
+        </div>
       </div>
     );
   }
