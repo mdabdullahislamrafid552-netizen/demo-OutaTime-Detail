@@ -80,9 +80,27 @@
         "read": { "type": "boolean" }
       },
       "required": ["firstName", "lastName", "email", "createdAt", "read"]
+    },
+    "Setting": {
+      "title": "Setting",
+      "description": "A global configuration or settings document.",
+      "type": "object",
+      "properties": {
+        "seo": { "type": "object" },
+        "home": { "type": "object" },
+        "about": { "type": "object" },
+        "contact": { "type": "object" },
+        "analytics": { "type": "object" }
+      }
     }
   },
   "firestore": {
+    "/settings/{docId}": {
+      "schema": {
+        "$ref": "#/entities/Setting"
+      },
+      "description": "Stores global app settings like SEO, Analytics, and Page content."
+    },
     "/services/{serviceId}": {
       "schema": {
         "$ref": "#/entities/Service"

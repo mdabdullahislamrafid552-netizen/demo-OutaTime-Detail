@@ -1,5 +1,14 @@
-import { db } from '../firebase';
+import { db, storage } from '../firebase';
 import { collection, doc, getDocs, getDoc, setDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
+export async function uploadImageToStorage(file: File): Promise<string> {
+  const fileExt = file.name.split('.').pop();
+  const fileName = `img_${Date.now()}.${fileExt}`;
+  const storageRef = ref(storage, `gallery/${fileName}`);
+  await uploadBytes(storageRef, file);
+  return getDownloadURL(storageRef);
+}
 
 export enum OperationType {
   CREATE = 'create',
@@ -254,5 +263,29 @@ export async function deleteLead(id: string) {
     await deleteDoc(doc(db, 'leads', id));
   } catch (err) {
     handleFirestoreError(err, OperationType.DELETE, `leads/${id}`);
+  }
+}
+
+// -------------------------------------------------------------
+// Global Settings / Pages / SEO / Analytics
+// -------------------------------------------------------------
+
+export function subscribeToSettings(callback: (data: any) => void) {
+  return onSnapshot(doc(db, 'settings', 'global'), (snapshot) => {
+    if (snapshot.exists()) {
+      callback(snapshot.data());
+    } else {
+      callback(null);
+    }
+  }, (error) => {
+    console.error('Error fetching settings:', error);
+  });
+}
+
+export async function saveSettings(data: any) {
+  try {
+    await setDoc(doc(db, 'settings', 'global'), data, { merge: true });
+  } catch (err) {
+    handleFirestoreError(err, OperationType.WRITE, 'settings/global');
   }
 }

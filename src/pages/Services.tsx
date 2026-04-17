@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { subscribeToServices } from '../lib/cms';
+import { subscribeToServices, subscribeToSettings } from '../lib/cms';
 
 const ease = [0.16, 1, 0.3, 1];
 
@@ -59,16 +59,18 @@ const defaultServices = [
 
 export default function Services() {
   const [services, setServices] = useState<any[]>([]);
+  const [settings, setSettings] = useState<any>(null);
 
   useEffect(() => {
     const unsub = subscribeToServices((data) => {
       if (data.length > 0) {
-        setServices(data);
+        setServices(data.sort((a,b) => a.order - b.order));
       } else {
         setServices(defaultServices); // Fallback
       }
     });
-    return () => unsub();
+    const unsubSettings = subscribeToSettings(setSettings);
+    return () => { unsub(); unsubSettings(); };
   }, []);
 
   return (
@@ -137,7 +139,14 @@ export default function Services() {
                     <span className="text-[10px] uppercase tracking-[0.3em] text-[#d1d1d1]/50 mb-4 block">
                       {service.subtitle}
                     </span>
-                    <h2 className="text-4xl md:text-5xl font-serif mb-6 tracking-tight">{service.title}</h2>
+                    <h2 className="text-4xl md:text-5xl font-serif mb-4 tracking-tight">{service.title}</h2>
+                    
+                    {service.price && (
+                      <div className="text-xl text-white/90 font-light mb-6 border-l-2 border-white/20 pl-4 py-1">
+                        {service.price}
+                      </div>
+                    )}
+                    
                     <p className="text-[#d1d1d1]/70 leading-relaxed mb-10 font-light text-lg">
                       {service.description}
                     </p>

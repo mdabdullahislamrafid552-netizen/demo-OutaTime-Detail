@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { ShieldCheck, Star, Droplets, Sparkles, ArrowRight, Award, MapPin, Shield, Wind, Settings2, Wrench } from 'lucide-react';
-import { subscribeToServices } from '../lib/cms';
+import { subscribeToServices, subscribeToSettings } from '../lib/cms';
 
 const ease = [0.16, 1, 0.3, 1];
 
@@ -51,6 +51,7 @@ const defaultServices = [
 
 export default function Home() {
   const [services, setServices] = useState<any[]>([]);
+  const [settings, setSettings] = useState<any>(null);
 
   useEffect(() => {
     const unsub = subscribeToServices((data) => {
@@ -60,8 +61,12 @@ export default function Home() {
         setServices(defaultServices); // Fallback
       }
     });
-    return () => unsub();
+    const unsubSettings = subscribeToSettings(setSettings);
+    return () => { unsub(); unsubSettings(); };
   }, []);
+
+  const sAbout = settings?.about || {};
+  const sHome = settings?.home || {};
 
   return (
     <div className="w-full">
@@ -90,7 +95,7 @@ export default function Home() {
               className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md"
             >
               <ShieldCheck size={16} className="text-[#d1d1d1]" />
-              <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#d1d1d1]">Paint Reconditioning Certified • Koch Chemie USA</span>
+              <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#d1d1d1]">{sHome.heroPreTitle || 'Paint Reconditioning Certified • Koch Chemie USA'}</span>
             </motion.div>
           </div>
           
@@ -102,7 +107,7 @@ export default function Home() {
                 transition={{ duration: 1.2, ease, delay: 0.3 }}
                 className="block"
               >
-                Premium Mobile
+                {sHome.heroTitle1 || 'Premium Mobile'}
               </motion.span>
             </div>
             <div className="overflow-hidden pb-4">
@@ -112,7 +117,7 @@ export default function Home() {
                 transition={{ duration: 1.2, ease, delay: 0.4 }}
                 className="block italic text-white/90"
               >
-                Auto Detailing
+                {sHome.heroTitle2 || 'Auto Detailing'}
               </motion.span>
             </div>
           </h1>
@@ -122,10 +127,9 @@ export default function Home() {
               initial={{ y: "100%", opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 1, ease, delay: 0.5 }}
-              className="text-lg md:text-xl text-[#d1d1d1]/70 max-w-2xl font-light tracking-wide leading-relaxed text-left"
+              className="text-lg md:text-xl text-[#d1d1d1]/70 max-w-2xl font-light tracking-wide leading-relaxed text-left whitespace-pre-wrap"
             >
-              Convenience. Quality. Professional Results. <br className="hidden sm:block"/>
-              Serving Collin County, Texas directly at your location.
+              {sHome.heroDesc || `Convenience. Quality. Professional Results. \nServing Collin County, Texas directly at your location.`}
             </motion.p>
           </div>
           
@@ -161,8 +165,8 @@ export default function Home() {
               >
                 <div className="aspect-[4/5] lg:aspect-[3/4] relative overflow-hidden rounded-sm group shadow-2xl">
                   <img 
-                    src="https://instagram.fdac2-2.fna.fbcdn.net/v/t39.30808-6/653704684_122107888677280371_1967502274310306261_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=102&ig_cache_key=Mzg1ODE4NTk4MzUxMTMyNzMwNQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjExNTJ4MTE1Mi5zZHIuQzMifQ%3D%3D&_nc_ohc=nWDc7TtmN6MQ7kNvwFkrzqR&_nc_oc=AdohPHylcaQc8Wb96RzqbaixDBgT_9Ir_OSGbbrYI_L3_sdkGP1tNI4L08BPbSO2K-0&_nc_ad=z-m&_nc_cid=1112&_nc_zt=23&_nc_ht=instagram.fdac2-2.fna&_nc_gid=sKHClttrTjDfqjlNIkBcvg&_nc_ss=7a32e&oh=00_Af3aphSrdegm7xz9Adyk7QhNWg-zzq6TJD5wfraadxqPrQ&oe=69E59C13" 
-                    alt="Martin Bedard Detailing" 
+                    src={sAbout.image || "https://instagram.fdac2-2.fna.fbcdn.net/v/t39.30808-6/653704684_122107888677280371_1967502274310306261_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=102&ig_cache_key=Mzg1ODE4NTk4MzUxMTMyNzMwNQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjExNTJ4MTE1Mi5zZHIuQzMifQ%3D%3D&_nc_ohc=nWDc7TtmN6MQ7kNvwFkrzqR&_nc_oc=AdohPHylcaQc8Wb96RzqbaixDBgT_9Ir_OSGbbrYI_L3_sdkGP1tNI4L08BPbSO2K-0&_nc_ad=z-m&_nc_cid=1112&_nc_zt=23&_nc_ht=instagram.fdac2-2.fna&_nc_gid=sKHClttrTjDfqjlNIkBcvg&_nc_ss=7a32e&oh=00_Af3aphSrdegm7xz9Adyk7QhNWg-zzq6TJD5wfraadxqPrQ&oe=69E59C13"}
+                    alt={sAbout.title1 || "Martin Bedard Detailing"} 
                     className="w-full h-full object-cover transition-transform duration-[3s] ease-[0.16,1,0.3,1] group-hover:scale-105"
                     referrerPolicy="no-referrer"
                   />
@@ -184,28 +188,22 @@ export default function Home() {
                 className="bg-[#171717] lg:bg-transparent p-6 sm:p-8 lg:p-0 shadow-2xl lg:shadow-none border border-white/5 lg:border-none"
               >
                 <span className="text-[10px] uppercase tracking-[0.3em] text-[#d1d1d1]/50 mb-4 lg:mb-6 block">
-                  The Story
+                  {sAbout.eyebrow || 'The Story'}
                 </span>
                 <h2 className="text-4xl sm:text-5xl md:text-7xl font-serif mb-6 lg:mb-10 leading-[1.1] tracking-tight">
-                  Craftsmanship <br/>
-                  <span className="italic text-white/90">in Motion.</span>
+                  {sAbout.title1 || 'Craftsmanship'} <br/>
+                  <span className="italic text-white/90">{sAbout.title2 || 'in Motion.'}</span>
                 </h2>
                 
                 <div className="space-y-6 lg:space-y-8 text-[#d1d1d1]/70 font-light leading-relaxed text-base lg:text-lg">
                   <p>
-                    Founded by Martin Bedard, OutaTime Detail was born from a singular obsession: 
-                    restoring vehicles to their absolute peak condition. We don't just wash cars; 
-                    we preserve investments.
+                    {sAbout.p1 || "Founded by Martin Bedard, OutaTime Detail was born from a singular obsession: restoring vehicles to their absolute peak condition. We don't just wash cars; we preserve investments."}
                   </p>
                   <p>
-                    Based in Collin County, Texas, we recognized a need for high-end, uncompromising 
-                    auto detailing that doesn't require you to leave your home or office. Our fully 
-                    equipped mobile unit brings the studio experience directly to you.
+                    {sAbout.p2 || "Based in Collin County, Texas, we recognized a need for high-end, uncompromising auto detailing that doesn't require you to leave your home or office. Our fully equipped mobile unit brings the studio experience directly to you."}
                   </p>
                   <p>
-                    We are proud to be Paint Reconditioning Certified by Koch Chemie USA, utilizing 
-                    world-class German abrasives and compounds to achieve flawless finishes that 
-                    standard detailing simply cannot match.
+                    {sAbout.p3 || "We are proud to be Paint Reconditioning Certified by Koch Chemie USA, utilizing world-class German abrasives and compounds to achieve flawless finishes that standard detailing simply cannot match."}
                   </p>
                 </div>
 
@@ -213,12 +211,12 @@ export default function Home() {
                   <div>
                     <Award className="text-white/30 mb-3 lg:mb-4" size={24} strokeWidth={1.5} />
                     <h4 className="font-serif text-lg lg:text-xl text-white mb-1 lg:mb-2">Certified</h4>
-                    <p className="text-[9px] lg:text-[10px] text-[#d1d1d1]/50 uppercase tracking-[0.2em]">Koch Chemie USA</p>
+                    <p className="text-[9px] lg:text-[10px] text-[#d1d1d1]/50 uppercase tracking-[0.2em]">{settings?.contact?.area ? 'Professionally' : 'Koch Chemie USA'}</p>
                   </div>
                   <div>
                     <MapPin className="text-white/30 mb-3 lg:mb-4" size={24} strokeWidth={1.5} />
                     <h4 className="font-serif text-lg lg:text-xl text-white mb-1 lg:mb-2">Mobile</h4>
-                    <p className="text-[9px] lg:text-[10px] text-[#d1d1d1]/50 uppercase tracking-[0.2em]">Collin County, TX</p>
+                    <p className="text-[9px] lg:text-[10px] text-[#d1d1d1]/50 uppercase tracking-[0.2em]">{settings?.contact?.area || 'Collin County, TX'}</p>
                   </div>
                   <div>
                     <Shield className="text-white/30 mb-3 lg:mb-4" size={24} strokeWidth={1.5} />
@@ -306,7 +304,8 @@ export default function Home() {
                       </div>
                       
                       <div className="transform transition-transform duration-700 ease-[0.16,1,0.3,1] md:translate-y-12 group-hover:translate-y-0">
-                        <h3 className="text-3xl md:text-4xl font-serif mb-4 text-white tracking-tight">{service.title}</h3>
+                        <h3 className="text-3xl md:text-4xl font-serif mb-2 text-white tracking-tight">{service.title}</h3>
+                        {service.price && <div className="text-sm font-medium text-white/90 mb-4">{service.price}</div>}
                         <p className="text-[#d1d1d1]/80 text-sm md:text-base leading-relaxed font-light md:opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 mb-6">
                           {service.desc}
                         </p>

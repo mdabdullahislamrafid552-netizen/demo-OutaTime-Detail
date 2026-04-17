@@ -98,6 +98,11 @@ service cloud.firestore {
       allow read, update, delete: if true; // Publicly manageable (requested for no-auth admin)
     }
     
+    // Rules for Settings (Pages, Globals, SEO, Analytics)
+    match /settings/{docId} {
+      allow read, write: if true;
+    }
+
     // Explicit deny for any other collections
     match /{document=**} {
       allow read, write: if false;

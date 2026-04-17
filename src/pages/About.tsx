@@ -1,9 +1,20 @@
 import { motion } from 'motion/react';
 import { Award, MapPin, Shield } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { subscribeToSettings } from '../lib/cms';
 
 const ease = [0.16, 1, 0.3, 1];
 
 export default function About() {
+  const [settings, setSettings] = useState<any>(null);
+
+  useEffect(() => {
+    const unsub = subscribeToSettings(setSettings);
+    return () => unsub();
+  }, []);
+
+  const sAbout = settings?.about || {};
+
   return (
     <div className="w-full">
       <section className="pt-40 pb-32 bg-[#171717]">
@@ -16,28 +27,22 @@ export default function About() {
                 transition={{ duration: 1.2, ease }}
               >
                 <span className="text-[10px] uppercase tracking-[0.3em] text-[#d1d1d1]/50 mb-6 block">
-                  The Story
+                  {sAbout.eyebrow || 'The Story'}
                 </span>
                 <h1 className="text-5xl md:text-7xl font-serif mb-10 leading-[1.1] tracking-tight">
-                  Craftsmanship <br/>
-                  <span className="italic text-white/90">in Motion.</span>
+                  {sAbout.title1 || 'Craftsmanship'} <br/>
+                  <span className="italic text-white/90">{sAbout.title2 || 'in Motion.'}</span>
                 </h1>
                 
                 <div className="space-y-8 text-[#d1d1d1]/70 font-light leading-relaxed text-lg">
                   <p>
-                    Founded by Martin Bedard, OutaTime Detail was born from a singular obsession: 
-                    restoring vehicles to their absolute peak condition. We don't just wash cars; 
-                    we preserve investments.
+                    {sAbout.p1 || "Founded by Martin Bedard, OutaTime Detail was born from a singular obsession: restoring vehicles to their absolute peak condition. We don't just wash cars; we preserve investments."}
                   </p>
                   <p>
-                    Based in Collin County, Texas, we recognized a need for high-end, uncompromising 
-                    auto detailing that doesn't require you to leave your home or office. Our fully 
-                    equipped mobile unit brings the studio experience directly to you.
+                    {sAbout.p2 || "Based in Collin County, Texas, we recognized a need for high-end, uncompromising auto detailing that doesn't require you to leave your home or office. Our fully equipped mobile unit brings the studio experience directly to you."}
                   </p>
                   <p>
-                    We are proud to be Paint Reconditioning Certified by Koch Chemie USA, utilizing 
-                    world-class German abrasives and compounds to achieve flawless finishes that 
-                    standard detailing simply cannot match.
+                    {sAbout.p3 || "We are proud to be Paint Reconditioning Certified by Koch Chemie USA, utilizing world-class German abrasives and compounds to achieve flawless finishes that standard detailing simply cannot match."}
                   </p>
                 </div>
 
@@ -45,12 +50,12 @@ export default function About() {
                   <div>
                     <Award className="text-white/30 mb-4" size={28} strokeWidth={1.5} />
                     <h4 className="font-serif text-xl text-white mb-2">Certified</h4>
-                    <p className="text-[10px] text-[#d1d1d1]/50 uppercase tracking-[0.2em]">Koch Chemie USA</p>
+                    <p className="text-[10px] text-[#d1d1d1]/50 uppercase tracking-[0.2em]">{settings?.contact?.area ? 'Professionally' : 'Koch Chemie USA'}</p>
                   </div>
                   <div>
                     <MapPin className="text-white/30 mb-4" size={28} strokeWidth={1.5} />
                     <h4 className="font-serif text-xl text-white mb-2">Mobile</h4>
-                    <p className="text-[10px] text-[#d1d1d1]/50 uppercase tracking-[0.2em]">Collin County, TX</p>
+                    <p className="text-[10px] text-[#d1d1d1]/50 uppercase tracking-[0.2em]">{settings?.contact?.area || 'Collin County, TX'}</p>
                   </div>
                   <div>
                     <Shield className="text-white/30 mb-4" size={28} strokeWidth={1.5} />
@@ -70,8 +75,8 @@ export default function About() {
               >
                 <div className="aspect-[3/4] relative overflow-hidden rounded-sm group">
                   <img 
-                    src="https://instagram.fdac2-2.fna.fbcdn.net/v/t39.30808-6/653704684_122107888677280371_1967502274310306261_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=102&ig_cache_key=Mzg1ODE4NTk4MzUxMTMyNzMwNQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjExNTJ4MTE1Mi5zZHIuQzMifQ%3D%3D&_nc_ohc=nWDc7TtmN6MQ7kNvwFkrzqR&_nc_oc=AdohPHylcaQc8Wb96RzqbaixDBgT_9Ir_OSGbbrYI_L3_sdkGP1tNI4L08BPbSO2K-0&_nc_ad=z-m&_nc_cid=1112&_nc_zt=23&_nc_ht=instagram.fdac2-2.fna&_nc_gid=sKHClttrTjDfqjlNIkBcvg&_nc_ss=7a32e&oh=00_Af3aphSrdegm7xz9Adyk7QhNWg-zzq6TJD5wfraadxqPrQ&oe=69E59C13" 
-                    alt="Martin Bedard Detailing" 
+                    src={sAbout.image || "https://instagram.fdac2-2.fna.fbcdn.net/v/t39.30808-6/653704684_122107888677280371_1967502274310306261_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=102&ig_cache_key=Mzg1ODE4NTk4MzUxMTMyNzMwNQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjExNTJ4MTE1Mi5zZHIuQzMifQ%3D%3D&_nc_ohc=nWDc7TtmN6MQ7kNvwFkrzqR&_nc_oc=AdohPHylcaQc8Wb96RzqbaixDBgT_9Ir_OSGbbrYI_L3_sdkGP1tNI4L08BPbSO2K-0&_nc_ad=z-m&_nc_cid=1112&_nc_zt=23&_nc_ht=instagram.fdac2-2.fna&_nc_gid=sKHClttrTjDfqjlNIkBcvg&_nc_ss=7a32e&oh=00_Af3aphSrdegm7xz9Adyk7QhNWg-zzq6TJD5wfraadxqPrQ&oe=69E59C13"}
+                    alt={sAbout.title1 || "Martin Bedard Detailing"} 
                     className="w-full h-full object-cover transition-transform duration-[3s] ease-[0.16,1,0.3,1] group-hover:scale-105"
                     referrerPolicy="no-referrer"
                   />

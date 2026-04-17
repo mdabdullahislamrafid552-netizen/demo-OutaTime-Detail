@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { MapPin, Phone, Mail, Clock, Loader2, CheckCircle2 } from 'lucide-react';
-import { saveLead } from '../lib/cms';
+import { saveLead, subscribeToSettings } from '../lib/cms';
 
 const ease = [0.16, 1, 0.3, 1];
 
 export default function Contact() {
+  const [settings, setSettings] = useState<any>(null);
+
+  useEffect(() => {
+    const unsub = subscribeToSettings(setSettings);
+    return () => unsub();
+  }, []);
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -17,7 +24,7 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (!formData.firstName || !formData.email) return;
 
@@ -39,7 +46,7 @@ export default function Contact() {
     }, 5000);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: any) => {
     setFormData(prev => ({
       ...prev,
       [e.target.id]: e.target.value
@@ -89,7 +96,7 @@ export default function Contact() {
                   </div>
                   <div className="pt-1">
                     <h4 className="text-[10px] uppercase tracking-[0.2em] text-[#d1d1d1]/50 mb-2">Phone</h4>
-                    <a href="tel:+1234567890" className="text-xl text-white hover:text-[#d1d1d1] transition-colors font-light tracking-wide">(555) 123-4567</a>
+                    <a href={`tel:${settings?.contact?.phone || '+15551234567'}`} className="text-xl text-white hover:text-[#d1d1d1] transition-colors font-light tracking-wide">{settings?.contact?.phone || '(555) 123-4567'}</a>
                   </div>
                 </div>
 
@@ -99,7 +106,7 @@ export default function Contact() {
                   </div>
                   <div className="pt-1">
                     <h4 className="text-[10px] uppercase tracking-[0.2em] text-[#d1d1d1]/50 mb-2">Email</h4>
-                    <a href="mailto:info@outatimedetail.com" className="text-lg text-white hover:text-[#d1d1d1] transition-colors font-light tracking-wide">info@outatimedetail.com</a>
+                    <a href={`mailto:${settings?.contact?.email || 'info@outatimedetail.com'}`} className="text-lg text-white hover:text-[#d1d1d1] transition-colors font-light tracking-wide">{settings?.contact?.email || 'info@outatimedetail.com'}</a>
                   </div>
                 </div>
 
@@ -109,7 +116,7 @@ export default function Contact() {
                   </div>
                   <div className="pt-1">
                     <h4 className="text-[10px] uppercase tracking-[0.2em] text-[#d1d1d1]/50 mb-2">Service Area</h4>
-                    <p className="text-lg text-white font-light tracking-wide">Collin County, TX (Mobile)</p>
+                    <p className="text-lg text-white font-light tracking-wide">{settings?.contact?.area || 'Collin County, TX (Mobile)'}</p>
                   </div>
                 </div>
 
@@ -119,7 +126,7 @@ export default function Contact() {
                   </div>
                   <div className="pt-1">
                     <h4 className="text-[10px] uppercase tracking-[0.2em] text-[#d1d1d1]/50 mb-2">Hours</h4>
-                    <p className="text-lg text-white font-light tracking-wide">Mon - Sat: 8am - 6pm</p>
+                    <p className="text-lg text-white font-light tracking-wide">{settings?.contact?.hours || 'Mon - Sat: 8am - 6pm'}</p>
                   </div>
                 </div>
               </div>

@@ -1,7 +1,16 @@
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail, Instagram, Facebook } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { subscribeToSettings } from '../../lib/cms';
 
 export default function Footer() {
+  const [settings, setSettings] = useState<any>(null);
+
+  useEffect(() => {
+    const unsub = subscribeToSettings(setSettings);
+    return () => unsub();
+  }, []);
+
   return (
     <footer className="bg-[#111] border-t border-white/5 pt-32 pb-12">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -15,9 +24,8 @@ export default function Footer() {
                 referrerPolicy="no-referrer"
               />
             </Link>
-            <p className="text-[#d1d1d1]/60 max-w-sm mb-10 leading-relaxed font-light text-lg">
-              Premium mobile auto detailing serving Collin County, Texas. 
-              Paint Reconditioning Certified by Koch Chemie USA.
+            <p className="text-[#d1d1d1]/60 max-w-sm mb-10 leading-relaxed font-light text-lg whitespace-pre-wrap">
+              {settings?.home?.heroDesc || `Premium mobile auto detailing serving Collin County, Texas.`}
             </p>
             <div className="flex gap-4">
               <a href="#" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-[#d1d1d1]/60 hover:text-white hover:border-white/30 transition-all duration-500">
@@ -44,16 +52,16 @@ export default function Footer() {
             <h4 className="font-serif text-white text-xl mb-8 tracking-tight">Contact</h4>
             <ul className="space-y-6">
               <li className="flex items-start gap-4 text-[#d1d1d1]/60 text-sm font-light">
-                <MapPin size={18} className="mt-0.5 text-white/30" />
-                <span className="leading-relaxed">Collin County, TX<br/>Mobile Service</span>
+                <MapPin size={18} className="mt-0.5 text-white/30 shrink-0" />
+                <span className="leading-relaxed">{settings?.contact?.area || 'Collin County, TX'}<br/>Mobile Service</span>
               </li>
               <li className="flex items-center gap-4 text-[#d1d1d1]/60 text-sm font-light">
-                <Phone size={18} className="text-white/30" />
-                <a href="tel:+1234567890" className="hover:text-white transition-colors">(555) 123-4567</a>
+                <Phone size={18} className="text-white/30 shrink-0" />
+                <a href={`tel:${settings?.contact?.phone || '(555) 123-4567'}`} className="hover:text-white transition-colors truncate">{settings?.contact?.phone || '(555) 123-4567'}</a>
               </li>
-              <li className="flex items-center gap-4 text-[#d1d1d1]/60 text-sm font-light">
-                <Mail size={18} className="text-white/30" />
-                <a href="mailto:info@outatimedetail.com" className="hover:text-white transition-colors">info@outatimedetail.com</a>
+              <li className="flex items-center gap-4 text-[#d1d1d1]/60 text-sm font-light w-full">
+                <Mail size={18} className="text-white/30 shrink-0" />
+                <a href={`mailto:${settings?.contact?.email || 'info@outatimedetail.com'}`} className="hover:text-white transition-colors truncate block max-w-[200px]" title={settings?.contact?.email || 'info@outatimedetail.com'}>{settings?.contact?.email || 'info@outatimedetail.com'}</a>
               </li>
             </ul>
           </div>

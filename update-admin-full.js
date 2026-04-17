@@ -1,144 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { auth, loginWithGoogle, logout } from '../firebase';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { subscribeToServices, subscribeToGallery, addGalleryImage, deleteGalleryImage, saveService, deleteService, subscribeToLeads, markLeadRead, deleteLead, seedDefaults, subscribeToSettings, saveSettings, uploadImageToStorage } from '../lib/cms';
-import { Plus, Trash2, LogOut, CheckCircle2, Image as ImageIcon, Settings2, X, AlertTriangle, LayoutDashboard, Loader2, ArrowRight, Inbox, MailOpen, DownloadCloud, FileText, BarChart3 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import fs from 'fs';
 
-const ALLOWED_EMAILS = ['mdabdullahislamrafid552@gmail.com'];
+const content = fs.readFileSync('src/pages/Admin.tsx', 'utf-8');
 
-export default function Admin() {
-  const [user, setUser] = useState<any>({ email: 'admin@system.local', displayName: 'System Admin' });
-  const [services, setServices] = useState<any[]>([]);
-  const [gallery, setGallery] = useState<any[]>([]);
-  const [leads, setLeads] = useState<any[]>([]);
-  const [settings, setSettings] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
+const returnIndex = content.indexOf('  return (');
+if (returnIndex === -1) {
+  console.log("Could not find 'return ('");
+  process.exit(1);
+}
 
-  const [activeTab, setActiveTab] = useState<'overview' | 'gallery' | 'services' | 'inbox' | 'pages' | 'settings'>('overview');
+const beforeReturn = content.slice(0, returnIndex);
 
-  // UI States
-  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
-  const [isSaving, setIsSaving] = useState(false);
-  const [isSeeding, setIsSeeding] = useState(false);
-
-  // Settings State
-  const [editingSettings, setEditingSettings] = useState<any>({});
-
-  const handleSeedData = async () => {
-    setIsSeeding(true);
-    try {
-      await seedDefaults();
-      showToast('Live site data synchronized!');
-    } catch (e) {
-      showToast('Failed to sync content', 'error');
-    }
-    setIsSeeding(false);
-  };
-
-  const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; type: 'gallery' | 'service' | 'lead'; id: string } | null>(null);
-
-  // New Image Form
-  const [newImgUrl, setNewImgUrl] = useState('');
-  const [newImgCaption, setNewImgCaption] = useState('');
-  const [previewError, setPreviewError] = useState(false);
-
-  // New Service Form
-  const [editingService, setEditingService] = useState<any>(null);
-
-  // Leads
-  const [expandedLead, setExpandedLead] = useState<string | null>(null);
-  const unreadLeadsCount = leads.filter(l => !l.read).length;
-
-  useEffect(() => {
-    const unsubServices = subscribeToServices(setServices);
-    const unsubGallery = subscribeToGallery(setGallery);
-    const unsubLeads = subscribeToLeads(setLeads);
-    const unsubSettings = subscribeToSettings((data) => {
-      setSettings(data || {});
-      setEditingSettings(data || {});
-    });
-    
-    return () => {
-      unsubServices();
-      unsubGallery();
-      unsubLeads();
-      unsubSettings();
-    };
-  }, []);
-
-  const showToast = (message: string, type: 'success' | 'error' = 'success') => {
-    setToast({ message, type });
-    setTimeout(() => setToast(null), 3000);
-  };
-
-  const handleAddImage = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newImgUrl || previewError) return;
-    setIsSaving(true);
-    await addGalleryImage(newImgUrl, 'Gallery Upload');
-    setNewImgUrl('');
-    setIsSaving(false);
-    showToast('Image published to gallery');
-  };
-
-  const [isDragging, setIsDragging] = useState(false);
-  
-  const handleFileUpload = async (file: File) => {
-    if (!file || !file.type.startsWith('image/')) return;
-    setIsSaving(true);
-    try {
-      const url = await uploadImageToStorage(file);
-      await addGalleryImage(url, file.name);
-      showToast('Image uploaded & published');
-    } catch (error) {
-      showToast('Upload failed', 'error');
-    }
-    setIsSaving(false);
-  };
-
-  const confirmDelete = async () => {
-    if (!deleteConfirm) return;
-    setIsSaving(true);
-    try {
-      if (deleteConfirm.type === 'gallery') {
-        await deleteGalleryImage(deleteConfirm.id);
-      } else if (deleteConfirm.type === 'service') {
-        await deleteService(deleteConfirm.id);
-        setEditingService(null);
-      } else if (deleteConfirm.type === 'lead') {
-        await deleteLead(deleteConfirm.id);
-      }
-      showToast(deleteConfirm.type + ' deleted');
-    } catch {
-      showToast('Failed to delete item', 'error');
-    }
-    setIsSaving(false);
-    setDeleteConfirm(null);
-  };
-
-  const handleSaveService = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSaving(true);
-    try {
-      await saveService(editingService);
-      setEditingService(null);
-      showToast('Service package updated');
-    } catch {
-      showToast('Failed to save service', 'error');
-    }
-    setIsSaving(false);
-  };
-
-  const handleCreateNewService = () => {
-    setEditingService({ title: '', desc: '', description: '', img: '', features: [''], price: '' });
-  };
-
-  const handleEditService = (service: any) => {
-      setEditingService({...service, features: service.features || []});
-  };
-
-  return (
+const newRender = `  return (
     <div className="min-h-screen -mt-24 pt-32 pb-24 px-4 md:px-8 w-full bg-[#0a0a0a] text-[#d1d1d1] font-sans">
       <div className="max-w-[1400px] mx-auto relative">
         <AnimatePresence>
@@ -147,9 +19,9 @@ export default function Admin() {
               initial={{ opacity: 0, y: -20, x: '-50%' }}
               animate={{ opacity: 1, y: 0, x: '-50%' }}
               exit={{ opacity: 0, y: -20, x: '-50%' }}
-              className={`fixed top-28 left-1/2 z-50 px-5 py-3 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 backdrop-blur-xl border ${
+              className={\`fixed top-28 left-1/2 z-50 px-5 py-3 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-3 backdrop-blur-xl border \${
                 toast.type === 'success' ? 'bg-white/10 border-white/20 text-white' : 'bg-red-500/10 border-red-500/30 text-red-100'
-              }`}
+              }\`}
             >
               {toast.type === 'success' ? <CheckCircle2 size={18} className="text-emerald-400" /> : <AlertTriangle size={18} className="text-red-400" />}
               <span className="text-sm font-medium">{toast.message}</span>
@@ -198,28 +70,28 @@ export default function Admin() {
             </div>
             
             <nav className="flex md:flex-col gap-1 overflow-x-auto pb-4 md:pb-0 hide-scrollbar scroll-smooth">
-              <button onClick={() => setActiveTab('overview')} className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all whitespace-nowrap text-sm font-medium ${activeTab === 'overview' ? 'bg-white text-black shadow-md' : 'text-[#a1a1aa] hover:bg-white/5 hover:text-white'}`}>
+              <button onClick={() => setActiveTab('overview')} className={\`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all whitespace-nowrap text-sm font-medium \${activeTab === 'overview' ? 'bg-white text-black shadow-md' : 'text-[#a1a1aa] hover:bg-white/5 hover:text-white'}\`}>
                 <LayoutDashboard size={18} /> Overview
               </button>
-              <button onClick={() => setActiveTab('inbox')} className={`flex justify-between items-center px-4 py-2.5 rounded-xl transition-all whitespace-nowrap text-sm font-medium ${activeTab === 'inbox' ? 'bg-white text-black shadow-md' : 'text-[#a1a1aa] hover:bg-white/5 hover:text-white'}`}>
+              <button onClick={() => setActiveTab('inbox')} className={\`flex justify-between items-center px-4 py-2.5 rounded-xl transition-all whitespace-nowrap text-sm font-medium \${activeTab === 'inbox' ? 'bg-white text-black shadow-md' : 'text-[#a1a1aa] hover:bg-white/5 hover:text-white'}\`}>
                 <div className="flex items-center gap-3"><Inbox size={18} /> Inbox</div>
                 {unreadLeadsCount > 0 && (
-                  <span className={`px-2 py-0.5 text-[10px] rounded-full font-bold ${activeTab === 'inbox' ? 'bg-black text-white' : 'bg-red-500 text-white'}`}>
+                  <span className={\`px-2 py-0.5 text-[10px] rounded-full font-bold \${activeTab === 'inbox' ? 'bg-black text-white' : 'bg-red-500 text-white'}\`}>
                     {unreadLeadsCount}
                   </span>
                 )}
               </button>
               <div className="my-2 h-px w-full bg-white/5 mx-2 hidden md:block"></div>
-              <button onClick={() => setActiveTab('services')} className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all whitespace-nowrap text-sm font-medium ${activeTab === 'services' ? 'bg-white text-black shadow-md' : 'text-[#a1a1aa] hover:bg-white/5 hover:text-white'}`}>
+              <button onClick={() => setActiveTab('services')} className={\`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all whitespace-nowrap text-sm font-medium \${activeTab === 'services' ? 'bg-white text-black shadow-md' : 'text-[#a1a1aa] hover:bg-white/5 hover:text-white'}\`}>
                 <Settings2 size={18} /> Services
               </button>
-              <button onClick={() => setActiveTab('gallery')} className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all whitespace-nowrap text-sm font-medium ${activeTab === 'gallery' ? 'bg-white text-black shadow-md' : 'text-[#a1a1aa] hover:bg-white/5 hover:text-white'}`}>
+              <button onClick={() => setActiveTab('gallery')} className={\`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all whitespace-nowrap text-sm font-medium \${activeTab === 'gallery' ? 'bg-white text-black shadow-md' : 'text-[#a1a1aa] hover:bg-white/5 hover:text-white'}\`}>
                 <ImageIcon size={18} /> Gallery
               </button>
-              <button onClick={() => setActiveTab('pages')} className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all whitespace-nowrap text-sm font-medium ${activeTab === 'pages' ? 'bg-white text-black shadow-md' : 'text-[#a1a1aa] hover:bg-white/5 hover:text-white'}`}>
+              <button onClick={() => setActiveTab('pages')} className={\`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all whitespace-nowrap text-sm font-medium \${activeTab === 'pages' ? 'bg-white text-black shadow-md' : 'text-[#a1a1aa] hover:bg-white/5 hover:text-white'}\`}>
                 <FileText size={18} /> Pages
               </button>
-              <button onClick={() => setActiveTab('settings')} className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all whitespace-nowrap text-sm font-medium ${activeTab === 'settings' ? 'bg-white text-black shadow-md' : 'text-[#a1a1aa] hover:bg-white/5 hover:text-white'}`}>
+              <button onClick={() => setActiveTab('settings')} className={\`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all whitespace-nowrap text-sm font-medium \${activeTab === 'settings' ? 'bg-white text-black shadow-md' : 'text-[#a1a1aa] hover:bg-white/5 hover:text-white'}\`}>
                 <BarChart3 size={18} /> Settings & SEO
               </button>
             </nav>
@@ -274,9 +146,9 @@ export default function Admin() {
                       {leads.slice(0,4).map((lead, i) => (
                         <div key={i} className="px-5 py-4 border-b border-white/5 last:border-b-0 flex justify-between items-center hover:bg-white/[0.02] cursor-pointer transition-colors" onClick={() => setActiveTab('inbox')}>
                           <div className="flex items-center gap-3">
-                            <div className={`w-2 h-2 rounded-full ${!lead.read ? 'bg-red-500' : 'bg-transparent'}`}></div>
+                            <div className={\`w-2 h-2 rounded-full \${!lead.read ? 'bg-red-500' : 'bg-transparent'}\`}></div>
                             <div>
-                              <p className={`text-sm ${!lead.read ? 'text-white font-medium' : 'text-[#d4d4d8]'}`}>{lead.firstName} {lead.lastName}</p>
+                              <p className={\`text-sm \${!lead.read ? 'text-white font-medium' : 'text-[#d4d4d8]'}\`}>{lead.firstName} {lead.lastName}</p>
                               <p className="text-xs text-[#71717a]">{lead.service || 'General Inquiry'}</p>
                             </div>
                           </div>
@@ -350,36 +222,7 @@ export default function Admin() {
                   <div className="lg:col-span-1 h-fit sticky top-32">
                     <div className="bg-[#171717] border border-white/10 p-6 rounded-2xl flex flex-col">
                       <h3 className="text-sm font-semibold text-white mb-5 flex items-center gap-2 uppercase tracking-widest"><Plus size={14} className="text-white/50" /> Upload Image</h3>
-                      
-                      <div 
-                        className={`mb-6 border-2 border-dashed rounded-xl p-8 text-center transition-all ${isDragging ? 'border-emerald-500 bg-emerald-500/10' : 'border-white/10 hover:border-white/30 bg-black/40'}`}
-                        onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
-                        onDragLeave={() => setIsDragging(false)}
-                        onDrop={(e) => {
-                          e.preventDefault();
-                          setIsDragging(false);
-                          if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                            handleFileUpload(e.dataTransfer.files[0]);
-                          }
-                        }}
-                      >
-                        <ImageIcon size={32} className={`mx-auto mb-3 ${isDragging ? 'text-emerald-400' : 'text-white/30'}`} />
-                        <p className="text-sm font-medium text-white mb-1">Drag & Drop Image</p>
-                        <p className="text-xs text-[#71717a] mb-4">PNG, JPG up to 10MB</p>
-                        <label className="bg-white/10 hover:bg-white/20 text-white text-xs font-semibold px-4 py-2 rounded-lg cursor-pointer transition-colors block w-max mx-auto">
-                          Browse Files
-                          <input type="file" className="hidden" accept="image/*" onChange={(e) => {
-                            if (e.target.files && e.target.files[0]) handleFileUpload(e.target.files[0]);
-                          }} />
-                        </label>
-                      </div>
-
-                      <div className="relative mb-6">
-                         <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/10"></div></div>
-                         <div className="relative flex justify-center text-xs"><span className="bg-[#171717] px-2 text-[#71717a]">OR USE URL</span></div>
-                      </div>
-
-                      <form onSubmit={handleAddImage} className="space-y-4">
+                      <form onSubmit={handleAddImage} className="space-y-5 lg:space-y-4">
                         <div>
                           <input 
                             type="url" 
@@ -646,7 +489,7 @@ export default function Admin() {
                       {leads.map((lead) => (
                         <div key={lead.id} className="border-b border-white/5 last:border-b-0 group">
                           <div 
-                            className={`grid grid-cols-[auto_1fr_auto_auto] gap-4 px-6 py-4 items-center cursor-pointer transition-all hover:bg-white/[0.02] ${!lead.read ? 'bg-white/[0.03]' : ''}`}
+                            className={\`grid grid-cols-[auto_1fr_auto_auto] gap-4 px-6 py-4 items-center cursor-pointer transition-all hover:bg-white/[0.02] \${!lead.read ? 'bg-white/[0.03]' : ''}\`}
                             onClick={() => {
                               if (!lead.read) {
                                 markLeadRead(lead.id);
@@ -662,13 +505,13 @@ export default function Admin() {
                               )}
                             </div>
                             <div className="truncate pr-4">
-                              <span className={`block truncate ${!lead.read ? 'text-white font-semibold' : 'text-[#d4d4d8]'}`}>{lead.firstName} {lead.lastName}</span>
+                              <span className={\`block truncate \${!lead.read ? 'text-white font-semibold' : 'text-[#d4d4d8]'}\`}>{lead.firstName} {lead.lastName}</span>
                               <span className="text-[#a1a1aa] text-xs truncate block">{lead.email}</span>
                             </div>
-                            <div className={`hidden sm:block truncate text-xs ${!lead.read ? 'text-[#d4d4d8] font-medium' : 'text-[#71717a]'}`}>
+                            <div className={\`hidden sm:block truncate text-xs \${!lead.read ? 'text-[#d4d4d8] font-medium' : 'text-[#71717a]'}\`}>
                               {lead.service || 'General Inquiry'}
                             </div>
-                            <div className={`text-right text-xs whitespace-nowrap ${!lead.read ? 'text-[#d4d4d8] font-medium' : 'text-[#71717a]'}`}>
+                            <div className={\`text-right text-xs whitespace-nowrap \${!lead.read ? 'text-[#d4d4d8] font-medium' : 'text-[#71717a]'}\`}>
                               {new Date(lead.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
                             </div>
                           </div>
@@ -689,7 +532,7 @@ export default function Admin() {
                                       </div>
                                       <div>
                                         <h4 className="text-white text-lg font-bold">{lead.firstName} {lead.lastName}</h4>
-                                        <a href={`mailto:${lead.email}`} className="text-[#a1a1aa] hover:text-white transition-colors text-sm flex items-center gap-1"><MailOpen size={12}/> {lead.email}</a>
+                                        <a href={\`mailto:\${lead.email}\`} className="text-[#a1a1aa] hover:text-white transition-colors text-sm flex items-center gap-1"><MailOpen size={12}/> {lead.email}</a>
                                       </div>
                                     </div>
                                     <div className="text-right">
@@ -887,3 +730,6 @@ export default function Admin() {
     </div>
   );
 }
+`;
+
+fs.writeFileSync('src/pages/Admin.tsx', beforeReturn + newRender);
