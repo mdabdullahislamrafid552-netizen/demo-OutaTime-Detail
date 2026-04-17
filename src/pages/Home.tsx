@@ -77,7 +77,7 @@ export default function Home() {
             initial={{ scale: 1.15 }}
             animate={{ scale: 1 }}
             transition={{ duration: 2.5, ease: "easeOut" }}
-            src="https://i.pinimg.com/736x/25/b6/8f/25b68f7a4561e2c460dab0fdf768a35f.jpg" 
+            src={sHome.heroBg || "https://i.pinimg.com/736x/25/b6/8f/25b68f7a4561e2c460dab0fdf768a35f.jpg"} 
             alt="Luxury car detailing" 
             className="w-full h-full object-cover opacity-50"
             referrerPolicy="no-referrer"
@@ -211,7 +211,7 @@ export default function Home() {
                   <div>
                     <Award className="text-white/30 mb-3 lg:mb-4" size={24} strokeWidth={1.5} />
                     <h4 className="font-serif text-lg lg:text-xl text-white mb-1 lg:mb-2">Certified</h4>
-                    <p className="text-[9px] lg:text-[10px] text-[#d1d1d1]/50 uppercase tracking-[0.2em]">{settings?.contact?.area ? 'Professionally' : 'Koch Chemie USA'}</p>
+                    <p className="text-[9px] lg:text-[10px] text-[#d1d1d1]/50 uppercase tracking-[0.2em]">{sAbout.certs || 'Koch Chemie USA'}</p>
                   </div>
                   <div>
                     <MapPin className="text-white/30 mb-3 lg:mb-4" size={24} strokeWidth={1.5} />
@@ -221,7 +221,7 @@ export default function Home() {
                   <div>
                     <Shield className="text-white/30 mb-3 lg:mb-4" size={24} strokeWidth={1.5} />
                     <h4 className="font-serif text-lg lg:text-xl text-white mb-1 lg:mb-2">Insured</h4>
-                    <p className="text-[9px] lg:text-[10px] text-[#d1d1d1]/50 uppercase tracking-[0.2em]">Fully Covered</p>
+                    <p className="text-[9px] lg:text-[10px] text-[#d1d1d1]/50 uppercase tracking-[0.2em]">{sAbout.license || 'Fully Covered'}</p>
                   </div>
                 </div>
               </motion.div>

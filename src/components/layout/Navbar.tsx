@@ -1,19 +1,27 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { subscribeToSettings } from '../../lib/cms';
+import Banner from './Banner';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [settings, setSettings] = useState<any>(null);
   const location = useLocation();
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const unsub = subscribeToSettings(setSettings);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      unsub();
+    };
   }, []);
 
   const navLinks = [
@@ -26,16 +34,18 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-[0.16,1,0.3,1] ${
-        isScrolled ? 'bg-transparent backdrop-blur-xl py-2 border-b border-white/5' : 'bg-transparent py-4'
+      ref={headerRef}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[0.16,1,0.3,1] ${
+        isScrolled ? 'bg-[#171717]/80 backdrop-blur-xl border-b border-white/5' : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+      <Banner />
+      <div className={`max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center transition-all duration-500 ${isScrolled ? 'py-3' : 'py-6'}`}>
         <Link to="/" className="flex items-center z-50 group">
           <img 
-            src="https://i.imgur.com/vQ18UQb.png" 
-            alt="OutaTime Detail Logo" 
-            className="h-12 md:h-16 object-contain transition-opacity group-hover:opacity-80 mix-blend-screen contrast-125 brightness-90" 
+            src={settings?.logoUrl || "https://i.imgur.com/vQ18UQb.png"} 
+            alt="Logo" 
+            className="h-10 md:h-12 object-contain transition-opacity group-hover:opacity-80 mix-blend-screen contrast-125 brightness-90 shadow-2xl" 
             referrerPolicy="no-referrer"
           />
         </Link>

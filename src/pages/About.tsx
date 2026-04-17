@@ -50,7 +50,7 @@ export default function About() {
                   <div>
                     <Award className="text-white/30 mb-4" size={28} strokeWidth={1.5} />
                     <h4 className="font-serif text-xl text-white mb-2">Certified</h4>
-                    <p className="text-[10px] text-[#d1d1d1]/50 uppercase tracking-[0.2em]">{settings?.contact?.area ? 'Professionally' : 'Koch Chemie USA'}</p>
+                    <p className="text-[10px] text-[#d1d1d1]/50 uppercase tracking-[0.2em]">{sAbout.certs || 'Koch Chemie USA'}</p>
                   </div>
                   <div>
                     <MapPin className="text-white/30 mb-4" size={28} strokeWidth={1.5} />
@@ -60,7 +60,7 @@ export default function About() {
                   <div>
                     <Shield className="text-white/30 mb-4" size={28} strokeWidth={1.5} />
                     <h4 className="font-serif text-xl text-white mb-2">Insured</h4>
-                    <p className="text-[10px] text-[#d1d1d1]/50 uppercase tracking-[0.2em]">Fully Covered</p>
+                    <p className="text-[10px] text-[#d1d1d1]/50 uppercase tracking-[0.2em]">{sAbout.license || 'Fully Covered'}</p>
                   </div>
                 </div>
               </motion.div>
