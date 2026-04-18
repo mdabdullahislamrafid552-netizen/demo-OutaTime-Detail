@@ -71,7 +71,7 @@ export default function Home() {
             initial={{ scale: 1.15 }}
             animate={{ scale: 1 }}
             transition={{ duration: 2.5, ease: "easeOut" }}
-            src={sHome.heroBg || "https://lh3.googleusercontent.com/proxy/BbMFhuBN7a_vUeDMrGJjn0NvdTWBNVO_7FTnhrGbPREevothLfXYtZiOxk6MWy3UgQzmQR1SUGQLprMWU7Ul5Pe5OsZfG-mgF3z9Cn7eB4P3It7wzcF40mybmoozu4tFSMa-JXR4jlYqSMjOMmb5j1yN"} 
+            src={sHome.heroBg || "https://bespokedetailing.com.au/wp-content/uploads/2022/06/Paint-correction-sunshine-coast-2.jpg"} 
             alt="Luxury car detailing" 
             className="w-full h-full object-cover opacity-50"
             referrerPolicy="no-referrer"
