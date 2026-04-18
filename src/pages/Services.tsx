@@ -8,52 +8,44 @@ const ease = [0.16, 1, 0.3, 1];
 
 const defaultServices = [
   {
-    id: 'paint-reconditioning',
-    title: 'Paint Reconditioning',
-    subtitle: 'Koch Chemie Certified Correction',
-    description: 'A meticulous process to permanently remove surface imperfections like swirl marks, scratches, water spots, and oxidation. Restores clarity, depth, and gloss to your vehicle\'s clear coat.',
-    features: ['Multi-stage machine compounding & polishing', 'Koch Chemie specialized abrasives', 'Removal of 80-95% of defects', 'Prepares surface for ceramic coating'],
-    img: 'https://www.clearpro.com/wp-content/uploads/2024/07/how-to-restore-paint-on-a-car-2.webp'
-  },
-  {
-    id: 'full-detail',
-    title: 'Full Detail',
-    subtitle: 'The Complete Reset',
-    description: 'Our most comprehensive package. A thorough cleaning, decontamination, and protection of both the interior and exterior of your vehicle. Leaves no surface untouched.',
-    features: ['Deep exterior wash & spot-free rinse', 'Deep interior cleaning & stain treatment', 'Leather conditioning', 'Premium paint sealant applied'],
-    img: 'https://sharpdetailsilverspring.com/images/car2.jpg'
-  },
-  {
     id: 'exterior-detail',
     title: 'Exterior Detail',
     subtitle: 'Gloss & Protection',
-    description: 'A deep cleanse of your vehicle\'s exterior utilizing spot-free water to prevent water spots and ensure a flawless finish, followed by a high-quality sealant.',
-    features: ['Hand wash with spot-free water', 'Iron decontamination & clay bar', 'Wheel faces & barrels cleaned', '6-month paint sealant'],
+    description: 'Transform your vehicle with our Exterior Detail service, where we ensure a pristine finish with a full wash using spot-free water for long-lasting wax protection. Every inch of your car will shine, with meticulous attention given to cleaning all glass surfaces. Experience the difference of expert car detailing that prioritizes quality and care—because we believe in attention to detail, every time.',
+    features: ['Spot-free water wash', 'Long-lasting wax protection', 'Glass cleaning', 'Meticulous attention to detail'],
     img: 'https://www.apexautoperformance.com/wp-content/uploads/2023/02/What-is-Exterior-Detailing-of-a-Car.jpg'
   },
   {
     id: 'interior-detail',
     title: 'Interior Detail',
     subtitle: 'Sanitize & Restore',
-    description: 'A deep cleaning of all interior surfaces. We use specialized, safe cleaners to treat stains and restore your cabin to a factory-fresh feel.',
-    features: ['Deep vacuuming of carpets & seats', 'Surface restoration of plastics & vinyl', 'Targeted stain & odor treatment', 'UV protection applied to dash'],
+    description: 'Interior cleaning where it matters. Seats, carpets, doors, dash, vents, floor mats and glass. The kind of clean that makes you actually want to get in your car!',
+    features: ['Seats and carpets', 'Doors and dash', 'Vents and floor mats', 'Glass cleaning'],
     img: 'https://shineprosnh.com/wp-content/uploads/2024/07/interior-detail.jpeg'
   },
   {
-    id: 'trim-restoration',
-    title: 'Trim Restoration',
-    subtitle: 'Revive Faded Plastics',
-    description: 'Permanent restoration of faded, oxidized exterior plastic trim. We don\'t use temporary dressings; we use ceramic-infused restorers that bond to the plastic.',
-    features: ['Deep cleaning of textured plastics', 'Ceramic trim coating application', 'Restores deep black factory look', 'Lasts 12-24 months'],
-    img: 'https://www.carzspa.com/wp-content/uploads/2021/01/trim-restoration-carzspa.jpg'
+    id: 'full-detail',
+    title: 'Full Detail',
+    subtitle: 'The Complete Reset',
+    description: 'The complete reset! Every surface, inside and out. Paint is decontaminated, the interior deep cleaned, trim restored. Get your car looking better than new!',
+    features: ['Every surface inside and out', 'Paint decontamination', 'Interior deep clean', 'Trim restoration'],
+    img: 'https://sharpdetailsilverspring.com/images/car2.jpg'
   },
   {
-    id: 'rock-chip-repair',
-    title: 'Rock Chip Repair',
-    subtitle: 'Prevent Rust & Damage',
-    description: 'Precise color-matched touch-up of rock chips and deep scratches to prevent rust and improve the overall appearance of your vehicle\'s front end.',
-    features: ['Color-matched OEM paint', 'Chemical leveling for smooth finish', 'Prevents clear coat failure', 'Significantly improves appearance'],
-    img: 'https://www.motorbiscuit.com/wp-content/uploads/2022/07/Chrisfix-DIY-Rock-Chip-Repair-Demo-Video.jpg'
+    id: 'date-night-package',
+    title: 'Date Night Package',
+    subtitle: 'Quick & Clean',
+    description: 'Looking to have a quick detail for that special occasion? This interior/exterior service offers an exterior wash, tires/wheels cleaned and vehicle dried off. Interior will include a quick vacuum, wipe down of all surfaces and glass cleaned.',
+    features: ['Exterior wash', 'Tires/wheels cleaned', 'Vehicle dried off', 'Quick interior vacuum and wipe down'],
+    img: 'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: 'ceramic-coating',
+    title: 'Ceramic Coating',
+    subtitle: 'Permanent Bond',
+    description: 'The last protection your paint will need. A permanent bond coating that repels water, resists contamination, and keeps your car looking freshly detailed for years, not weeks! Service is applied by hand, paint surface thoroughly and properly prepped to ensure the coating properly bonds to the paint.',
+    features: ['Permanent bond coating', 'Repels water', 'Resists contamination', 'Applied by hand with thorough prep'],
+    img: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&q=80&w=800'
   }
 ];
 
@@ -160,9 +152,9 @@ export default function Services() {
                       ))}
                     </ul>
 
-                    <Link to="/contact" className="btn-outline inline-block">
+                    <a href="https://app.urable.com/virtual-shop/Q6yNmIRJFJJUoAWylz2J" target="_blank" rel="noreferrer" className="btn-outline inline-block">
                       Request Quote
-                    </Link>
+                    </a>
                   </motion.div>
                 </div>
               </div>

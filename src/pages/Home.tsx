@@ -1,51 +1,45 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { ShieldCheck, Star, Droplets, Sparkles, ArrowRight, Award, MapPin, Shield, Wind, Settings2, Wrench } from 'lucide-react';
+import { ShieldCheck, Star, Droplets, Sparkles, ArrowRight, Award, MapPin, Shield, Wind, Settings2, Wrench, PlusCircle } from 'lucide-react';
 import { subscribeToServices, subscribeToSettings } from '../lib/cms';
 
 const ease = [0.16, 1, 0.3, 1];
 
 const iconMap: Record<string, any> = {
-  Sparkles, Star, Droplets, Wind, Settings2, Wrench
+  Sparkles, Star, Droplets, Wind, Settings2, Wrench, ShieldCheck
 };
 
 const defaultServices = [
   {
-    title: 'Paint Reconditioning',
-    desc: 'Certified correction to remove swirls, scratches, and oxidation.',
-    icon: 'Sparkles',
-    img: 'https://www.clearpro.com/wp-content/uploads/2024/07/how-to-restore-paint-on-a-car-2.webp'
-  },
-  {
-    title: 'Full Detail',
-    desc: 'Comprehensive interior and exterior reset for a showroom finish.',
-    icon: 'Star',
-    img: 'https://sharpdetailsilverspring.com/images/car2.jpg'
-  },
-  {
     title: 'Exterior Detail',
-    desc: 'Deep wash using spot-free water for a flawless finish, decontamination, and premium sealant.',
+    desc: 'Transform your vehicle with our Exterior Detail service, where we ensure a pristine finish with a full wash using spot-free water for long-lasting wax protection. Every inch of your car will shine, with meticulous attention given to cleaning all glass surfaces. Experience the difference of expert car detailing that prioritizes quality and care—because we believe in attention to detail, every time.',
     icon: 'Droplets',
     img: 'https://www.apexautoperformance.com/wp-content/uploads/2023/02/What-is-Exterior-Detailing-of-a-Car.jpg'
   },
   {
     title: 'Interior Detail',
-    desc: 'Deep cleaning, stain treatment, and surface restoration for a factory-fresh feel.',
+    desc: 'Interior cleaning where it matters. Seats, carpets, doors, dash, vents, floor mats and glass. The kind of clean that makes you actually want to get in your car!',
     icon: 'Wind',
     img: 'https://shineprosnh.com/wp-content/uploads/2024/07/interior-detail.jpeg'
   },
   {
-    title: 'Trim Restoration',
-    desc: 'Permanent ceramic-infused restoration of faded exterior plastics.',
-    icon: 'Settings2',
-    img: 'https://www.carzspa.com/wp-content/uploads/2021/01/trim-restoration-carzspa.jpg'
+    title: 'Full Detail',
+    desc: 'The complete reset! Every surface, inside and out. Paint is decontaminated, the interior deep cleaned, trim restored. Get your car looking better than new!',
+    icon: 'Star',
+    img: 'https://sharpdetailsilverspring.com/images/car2.jpg'
   },
   {
-    title: 'Rock Chip Repair',
-    desc: 'Precise color-matched touch-up to prevent rust and improve appearance.',
-    icon: 'Wrench',
-    img: 'https://www.motorbiscuit.com/wp-content/uploads/2022/07/Chrisfix-DIY-Rock-Chip-Repair-Demo-Video.jpg'
+    title: 'Date Night Package',
+    desc: 'Looking to have a quick detail for that special occasion? This interior/exterior service offers an exterior wash, tires/wheels cleaned and vehicle dried off. Interior will include a quick vacuum, wipe down of all surfaces and glass cleaned.',
+    icon: 'Sparkles',
+    img: 'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    title: 'Ceramic Coating',
+    desc: 'The last protection your paint will need. A permanent bond coating that repels water, resists contamination, and keeps your car looking freshly detailed for years, not weeks! Service is applied by hand, paint surface thoroughly and properly prepped to ensure the coating properly bonds to the paint.',
+    icon: 'ShieldCheck',
+    img: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&q=80&w=800'
   }
 ];
 
@@ -77,7 +71,7 @@ export default function Home() {
             initial={{ scale: 1.15 }}
             animate={{ scale: 1 }}
             transition={{ duration: 2.5, ease: "easeOut" }}
-            src={sHome.heroBg || "https://i.pinimg.com/736x/25/b6/8f/25b68f7a4561e2c460dab0fdf768a35f.jpg"} 
+            src={sHome.heroBg || "https://scontent.fdac3-2.fna.fbcdn.net/v/t39.30808-6/637986933_10231238088631296_5178247587738125061_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=2a1932&_nc_ohc=EhUAi3tyn4EQ7kNvwH0sSnS&_nc_oc=Adp-62SIXuujXXiIZTIS06Y_f47nsyfuCHtt9OVaMtlKSojFLf7tQVn0OJnY6L1V5LA&_nc_zt=23&_nc_ht=scontent.fdac3-2.fna&_nc_gid=FRqt54OMl59-C-bjVOOa7w&_nc_ss=7a389&oh=00_Af1c0FZcrNG_ab8Y-uceYh-7mxatXal_l6j8fe6EO00SXQ&oe=69E99C05"} 
             alt="Luxury car detailing" 
             className="w-full h-full object-cover opacity-50"
             referrerPolicy="no-referrer"
@@ -139,12 +133,117 @@ export default function Home() {
             transition={{ duration: 1, ease, delay: 0.7 }}
             className="flex flex-col sm:flex-row items-center justify-start gap-6"
           >
-            <Link to="/contact" className="btn-primary w-full sm:w-auto">
+            <a href="https://app.urable.com/virtual-shop/Q6yNmIRJFJJUoAWylz2J" target="_blank" rel="noreferrer" className="btn-primary w-full sm:w-auto">
               Book Now
-            </Link>
-            <Link to="/services" className="btn-outline w-full sm:w-auto">
+            </a>
+            <a href="https://app.urable.com/virtual-shop/Q6yNmIRJFJJUoAWylz2J" target="_blank" rel="noreferrer" className="btn-outline w-full sm:w-auto">
               Explore Services
-            </Link>
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Enhanced Services / Add-ons Preview */}
+      <section className="py-32 bg-[#0a0a0a] border-y border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[#0a0a0a]">
+          {/* Subtle animated background orbs */}
+          <div className="absolute top-0 right-1/4 w-96 h-96 bg-white/[0.02] rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s' }}></div>
+          <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-white/[0.015] rounded-full blur-3xl animate-pulse" style={{ animationDuration: '12s' }}></div>
+          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03]"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+          <div className="text-center mb-24">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: [0.16,1,0.3,1] }}
+              className="inline-flex items-center justify-center gap-4 mb-6"
+            >
+              <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-white/20"></div>
+              <span className="text-[10px] uppercase font-bold tracking-[0.4em] text-[#d1d1d1]/50">
+                Specialized Care
+              </span>
+              <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-white/20"></div>
+            </motion.div>
+            <motion.h2 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1, duration: 1, ease: [0.16,1,0.3,1] }}
+              className="text-4xl md:text-6xl font-serif tracking-tight"
+            >
+              Enhanced Sequence
+            </motion.h2>
+          </div>
+
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
+            }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
+          >
+            {[
+              {
+                title: 'Faded Black Trim Restoration',
+                desc: 'Revitalize your exterior plastics and seals with our premium trim restoration service. Designed for up to 2 years of protection, our solution safeguards against harsh weather conditions, fading, and wear.',
+              },
+              {
+                title: 'Engine Bay Detail',
+                desc: 'Revitalize your engine bay with our specialized cleaning and protection services. We focus on safely cleaning baked on grease and dirt from the engine to ensure they shine like new.',
+              },
+              {
+                title: 'Paint Rock Chip Repair',
+                desc: 'Our service works best for small to medium sized chips and can transform a heavily chipped car into a pristine almost new condition. Most repairs will dramatically improve your vehicle’s overall appearance.',
+              },
+              {
+                title: 'Custom Add-Ons',
+                desc: 'Any service or package can be customized to your needs. We offer additional localized paint correction, interior ozone treatments, pet hair removal, and more to perfect your vehicle.',
+              }
+            ].map((addon, idx) => (
+              <motion.div 
+                key={idx}
+                variants={{
+                  hidden: { opacity: 0, y: 40, scale: 0.95 },
+                  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 1, ease: [0.16,1,0.3,1] } }
+                }}
+                className="relative bg-[#111] bg-gradient-to-br from-[#1c1c1c] to-[#0a0a0a] border border-white/5 p-8 group hover:border-white/20 focus-within:border-white/20 transition-all duration-700 rounded-2xl overflow-hidden flex flex-col justify-between shadow-[0_4px_24px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.8)] hover:-translate-y-2"
+              >
+                {/* Metallic Top Sheen */}
+                <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+
+                {/* Animated Background Large Number */}
+                <div className="absolute -right-4 -bottom-6 text-[160px] font-black leading-none italic pointer-events-none select-none z-0 text-transparent bg-clip-text bg-gradient-to-b from-white/[0.04] to-transparent group-hover:from-white/[0.08] transition-all duration-700 group-hover:-translate-x-4 group-hover:-translate-y-4 group-hover:scale-110">
+                  0{idx + 1}
+                </div>
+                
+                <div className="relative z-10 w-full mb-10">
+                  <div className="flex items-center gap-4 mb-8 relative z-20">
+                    <span className="flex items-center justify-center w-10 h-10 rounded-full bg-white/[0.03] border border-white/10 text-white font-serif text-lg group-hover:bg-white group-hover:text-black group-hover:border-white transition-all duration-700 shadow-inner">
+                      {idx + 1}
+                    </span>
+                    <span className="text-[10px] uppercase font-bold tracking-[0.3em] text-[#d1d1d1]/50 group-hover:text-[#d1d1d1]/90 transition-colors duration-500">Phase 0{idx + 1}</span>
+                  </div>
+                  
+                  <h3 className="text-2xl font-serif text-white mb-4 pr-4 leading-snug group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-white/60 transition-all duration-500">{addon.title}</h3>
+                  <p className="text-[#d1d1d1]/60 text-sm leading-relaxed font-light group-hover:text-[#d1d1d1]/80 transition-colors duration-500 relative z-20">
+                    {addon.desc}
+                  </p>
+                </div>
+                
+                <div className="relative z-10 mt-auto border-t border-white/5 pt-6 w-full transform transition-all duration-700">
+                  <div className="absolute top-0 left-0 w-0 h-[1px] bg-gradient-to-r from-white/30 to-transparent group-hover:w-full transition-all duration-1000 ease-[0.16,1,0.3,1]"></div>
+                  <a href="https://app.urable.com/virtual-shop/Q6yNmIRJFJJUoAWylz2J" target="_blank" rel="noreferrer" className="relative z-20 inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] font-bold text-white/40 group-hover:text-white transition-all duration-500 w-max">
+                    Explore <ArrowRight size={14} className="transform group-hover:translate-x-2 transition-transform duration-500" />
+                  </a>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
@@ -188,23 +287,29 @@ export default function Home() {
                 className="bg-[#171717] lg:bg-transparent p-6 sm:p-8 lg:p-0 shadow-2xl lg:shadow-none border border-white/5 lg:border-none"
               >
                 <span className="text-[10px] uppercase tracking-[0.3em] text-[#d1d1d1]/50 mb-4 lg:mb-6 block">
-                  {sAbout.eyebrow || 'The Story'}
+                  {sAbout.eyebrow || 'Customer Focused'}
                 </span>
                 <h2 className="text-4xl sm:text-5xl md:text-7xl font-serif mb-6 lg:mb-10 leading-[1.1] tracking-tight">
-                  {sAbout.title1 || 'Craftsmanship'} <br/>
-                  <span className="italic text-white/90">{sAbout.title2 || 'in Motion.'}</span>
+                  {sAbout.title1 || 'Detailing'} <br/>
+                  <span className="italic text-white/90">{sAbout.title2 || 'Services.'}</span>
                 </h2>
                 
                 <div className="space-y-6 lg:space-y-8 text-[#d1d1d1]/70 font-light leading-relaxed text-base lg:text-lg">
                   <p>
-                    {sAbout.p1 || "Founded by Martin Bedard, OutaTime Detail was born from a singular obsession: restoring vehicles to their absolute peak condition. We don't just wash cars; we preserve investments."}
+                    {sAbout.p1 || "Outatime Detailing LLC is your premier destination for top-quality car detailing services that will breathe new life into your vehicle. We are committed to upholding the highest standards of professionalism and are fully insured for your peace of mind. We take pride in using premium, eco-friendly products to ensure a flawless finish that exceeds your expectations."}
                   </p>
                   <p>
-                    {sAbout.p2 || "Based in Collin County, Texas, we recognized a need for high-end, uncompromising auto detailing that doesn't require you to leave your home or office. Our fully equipped mobile unit brings the studio experience directly to you."}
+                    {sAbout.p2 || "We use 100% deionized water which ensures no water spots, even in the Texas sun! We not only guarantee an impeccable result but also provide enhanced protection for your vehicle's surfaces."}
                   </p>
                   <p>
-                    {sAbout.p3 || "We are proud to be Paint Reconditioning Certified by Koch Chemie USA, utilizing world-class German abrasives and compounds to achieve flawless finishes that standard detailing simply cannot match."}
+                    {sAbout.p3 || "Contact us to view available services and to discuss your vehicle's needs. All services can be customized to deliver a solution that works best for you and your vehicle."}
                   </p>
+                  
+                  <div className="pt-4">
+                    <Link to="/about" className="inline-flex items-center gap-3 text-sm font-semibold uppercase tracking-widest text-white hover:text-[#d1d1d1] transition-colors border-b border-white/30 hover:border-white pb-1 w-max">
+                      More Info <ArrowRight size={14} />
+                    </Link>
+                  </div>
                 </div>
 
                 <div className="mt-10 lg:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8 border-t border-white/5 pt-8 lg:pt-12">
@@ -260,9 +365,9 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 1, ease }}
             >
-              <Link to="/services" className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-[#d1d1d1] hover:text-white transition-colors group pb-2 border-b border-white/10 hover:border-white/50">
+              <a href="https://app.urable.com/virtual-shop/Q6yNmIRJFJJUoAWylz2J" target="_blank" rel="noreferrer" className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-[#d1d1d1] hover:text-white transition-colors group pb-2 border-b border-white/10 hover:border-white/50">
                 All Services <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform duration-500 ease-out" />
-              </Link>
+              </a>
             </motion.div>
           </div>
 
@@ -309,12 +414,12 @@ export default function Home() {
                         <p className="text-[#d1d1d1]/80 text-sm md:text-base leading-relaxed font-light md:opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 mb-6">
                           {service.desc}
                         </p>
-                        <Link 
-                          to="/contact" 
+                        <a 
+                          href="https://app.urable.com/virtual-shop/Q6yNmIRJFJJUoAWylz2J" target="_blank" rel="noreferrer"
                           className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-white border border-white/20 px-6 py-3 rounded-full hover:bg-white hover:text-black transition-colors duration-300 md:opacity-0 group-hover:opacity-100"
                         >
                           Request Quote <ArrowRight size={14} />
-                        </Link>
+                        </a>
                         <div className="w-0 h-[1px] bg-white/30 mt-6 transition-all duration-700 ease-[0.16,1,0.3,1] group-hover:w-full hidden md:block"></div>
                       </div>
                     </div>

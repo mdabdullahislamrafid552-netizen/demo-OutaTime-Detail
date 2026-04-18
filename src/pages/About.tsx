@@ -27,22 +27,22 @@ export default function About() {
                 transition={{ duration: 1.2, ease }}
               >
                 <span className="text-[10px] uppercase tracking-[0.3em] text-[#d1d1d1]/50 mb-6 block">
-                  {sAbout.eyebrow || 'The Story'}
+                  {sAbout.eyebrow || 'Customer Focused'}
                 </span>
                 <h1 className="text-5xl md:text-7xl font-serif mb-10 leading-[1.1] tracking-tight">
-                  {sAbout.title1 || 'Craftsmanship'} <br/>
-                  <span className="italic text-white/90">{sAbout.title2 || 'in Motion.'}</span>
+                  {sAbout.title1 || 'Detailing'} <br/>
+                  <span className="italic text-white/90">{sAbout.title2 || 'Services.'}</span>
                 </h1>
                 
                 <div className="space-y-8 text-[#d1d1d1]/70 font-light leading-relaxed text-lg">
                   <p>
-                    {sAbout.p1 || "Founded by Martin Bedard, OutaTime Detail was born from a singular obsession: restoring vehicles to their absolute peak condition. We don't just wash cars; we preserve investments."}
+                    {sAbout.p1 || "Outatime Detailing LLC is your premier destination for top-quality car detailing services that will breathe new life into your vehicle. We are committed to upholding the highest standards of professionalism and are fully insured for your peace of mind. We take pride in using premium, eco-friendly products to ensure a flawless finish that exceeds your expectations."}
                   </p>
                   <p>
-                    {sAbout.p2 || "Based in Collin County, Texas, we recognized a need for high-end, uncompromising auto detailing that doesn't require you to leave your home or office. Our fully equipped mobile unit brings the studio experience directly to you."}
+                    {sAbout.p2 || "We use 100% deionized water which ensures no water spots, even in the Texas sun! We not only guarantee an impeccable result but also provide enhanced protection for your vehicle's surfaces."}
                   </p>
                   <p>
-                    {sAbout.p3 || "We are proud to be Paint Reconditioning Certified by Koch Chemie USA, utilizing world-class German abrasives and compounds to achieve flawless finishes that standard detailing simply cannot match."}
+                    {sAbout.p3 || "Contact us to view available services and to discuss your vehicle's needs. All services can be customized to deliver a solution that works best for you and your vehicle."}
                   </p>
                 </div>
 

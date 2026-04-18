@@ -17,7 +17,7 @@ export default function Contact() {
     firstName: '',
     lastName: '',
     email: '',
-    vehicle: '',
+    phone: '',
     service: '',
     message: ''
   });
@@ -36,7 +36,7 @@ export default function Contact() {
       firstName: '',
       lastName: '',
       email: '',
-      vehicle: '',
+      phone: '',
       service: '',
       message: ''
     });
@@ -75,7 +75,7 @@ export default function Contact() {
                 transition={{ duration: 1, ease, delay: 0.2 }}
                 className="text-[#d1d1d1]/60 max-w-2xl mx-auto text-lg font-light leading-relaxed"
               >
-                Ready to restore your vehicle's finish? Contact us below or use our Urable booking system to schedule your mobile detail.
+                Ready to restore your vehicle's finish? We proudly offer premium Mobile Detailing featuring <strong className="text-white font-medium">100% DI Spot Free Water</strong> to guarantee a flawless, sun-safe shine. Contact us below!
               </motion.p>
             </div>
           </div>
@@ -96,7 +96,7 @@ export default function Contact() {
                   </div>
                   <div className="pt-1">
                     <h4 className="text-[10px] uppercase tracking-[0.2em] text-[#d1d1d1]/50 mb-2">Phone</h4>
-                    <a href={`tel:${settings?.contact?.phone || '+15551234567'}`} className="text-xl text-white hover:text-[#d1d1d1] transition-colors font-light tracking-wide">{settings?.contact?.phone || '(555) 123-4567'}</a>
+                    <a href={`tel:${settings?.contact?.phone || '469-815-1949'}`} className="text-xl text-white hover:text-[#d1d1d1] transition-colors font-light tracking-wide">{settings?.contact?.phone || '469-815-1949'}</a>
                   </div>
                 </div>
 
@@ -106,7 +106,7 @@ export default function Contact() {
                   </div>
                   <div className="pt-1">
                     <h4 className="text-[10px] uppercase tracking-[0.2em] text-[#d1d1d1]/50 mb-2">Email</h4>
-                    <a href={`mailto:${settings?.contact?.email || 'info@outatimedetail.com'}`} className="text-lg text-white hover:text-[#d1d1d1] transition-colors font-light tracking-wide">{settings?.contact?.email || 'info@outatimedetail.com'}</a>
+                    <a href={`mailto:${settings?.contact?.email || 'martin@outatimedetail.com'}`} className="text-lg text-white hover:text-[#d1d1d1] transition-colors font-light tracking-wide">{settings?.contact?.email || 'martin@outatimedetail.com'}</a>
                   </div>
                 </div>
 
@@ -115,8 +115,11 @@ export default function Contact() {
                     <MapPin size={20} className="text-white/50 group-hover:text-white transition-colors duration-500" />
                   </div>
                   <div className="pt-1">
-                    <h4 className="text-[10px] uppercase tracking-[0.2em] text-[#d1d1d1]/50 mb-2">Service Area</h4>
-                    <p className="text-lg text-white font-light tracking-wide">{settings?.contact?.area || 'Collin County, TX (Mobile)'}</p>
+                    <h4 className="text-[10px] uppercase tracking-[0.2em] text-[#d1d1d1]/50 mb-2">Address</h4>
+                    <p className="text-lg text-white font-light tracking-wide leading-relaxed">
+                      1401 Rolling Hills<br/>
+                      Celina, TX 75009
+                    </p>
                   </div>
                 </div>
 
@@ -124,9 +127,13 @@ export default function Contact() {
                   <div className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center shrink-0 group-hover:border-white/30 transition-colors duration-500">
                     <Clock size={20} className="text-white/50 group-hover:text-white transition-colors duration-500" />
                   </div>
-                  <div className="pt-1">
-                    <h4 className="text-[10px] uppercase tracking-[0.2em] text-[#d1d1d1]/50 mb-2">Hours</h4>
-                    <p className="text-lg text-white font-light tracking-wide">{settings?.contact?.hours || 'Mon - Sat: 8am - 6pm'}</p>
+                  <div className="pt-1 w-full">
+                    <h4 className="text-[10px] uppercase tracking-[0.2em] text-[#d1d1d1]/50 mb-4">Hours</h4>
+                    <ul className="space-y-2 text-[#d1d1d1]/80 text-sm font-light w-full max-w-[240px]">
+                      <li className="flex justify-between items-center"><span>Mon - Fri</span><span className="text-white">8:00 am - 8:00 pm</span></li>
+                      <li className="flex justify-between items-center"><span>Saturday</span><span className="text-white">9:00 am - 7:00 pm</span></li>
+                      <li className="flex justify-between items-center"><span>Sunday</span><span className="text-white">9:00 am - 7:00 pm</span></li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -136,9 +143,9 @@ export default function Contact() {
                 <p className="text-[#d1d1d1]/60 text-sm mb-8 leading-relaxed font-light">
                   For the fastest service, use our integrated Urable booking system to select your package and find an available time slot.
                 </p>
-                <button className="btn-primary w-full">
+                <a href="https://app.urable.com/virtual-shop/Q6yNmIRJFJJUoAWylz2J" target="_blank" rel="noreferrer" className="btn-primary w-full text-center block">
                   Book via Urable
-                </button>
+                </a>
               </div>
             </motion.div>
 
@@ -195,20 +202,20 @@ export default function Contact() {
                 </div>
 
                 <div className="space-y-3">
-                  <label htmlFor="vehicle" className="text-[10px] uppercase tracking-[0.2em] text-[#d1d1d1]/50">Vehicle Make & Model</label>
+                  <label htmlFor="phone" className="text-[10px] uppercase tracking-[0.2em] text-[#d1d1d1]/50">Phone</label>
                   <input 
-                    type="text" 
-                    id="vehicle" 
-                    value={formData.vehicle}
+                    type="tel" 
+                    id="phone" 
+                    value={formData.phone || ''}
                     onChange={handleChange}
                     className="w-full bg-transparent border-b border-white/10 px-0 py-3 text-white focus:outline-none focus:border-white/50 transition-colors font-light"
-                    placeholder="e.g. 2023 Porsche 911"
+                    placeholder="(555) 555-5555"
                     disabled={isSubmitting}
                   />
                 </div>
 
                 <div className="space-y-3">
-                  <label htmlFor="service" className="text-[10px] uppercase tracking-[0.2em] text-[#d1d1d1]/50">Service of Interest</label>
+                  <label htmlFor="service" className="text-[10px] uppercase tracking-[0.2em] text-[#d1d1d1]/50">Services</label>
                   <select 
                     id="service" 
                     value={formData.service}
@@ -217,16 +224,20 @@ export default function Contact() {
                     disabled={isSubmitting}
                   >
                     <option value="" className="bg-[#171717]">Select a service...</option>
-                    <option value="Paint Reconditioning" className="bg-[#171717]">Paint Reconditioning</option>
-                    <option value="Full Detail" className="bg-[#171717]">Full Detail</option>
-                    <option value="Exterior Detail" className="bg-[#171717]">Exterior Detail</option>
-                    <option value="Interior Detail" className="bg-[#171717]">Interior Detail</option>
+                    <option value="Date Night Package" className="bg-[#171717]">Date Night Package</option>
+                    <option value="Essential Exterior Detail" className="bg-[#171717]">Essential Exterior Detail</option>
+                    <option value="Essential Interior Detail" className="bg-[#171717]">Essential Interior Detail</option>
+                    <option value="Signature Exterior" className="bg-[#171717]">Signature Exterior</option>
+                    <option value="Signature Interior" className="bg-[#171717]">Signature Interior</option>
+                    <option value="Signature Full Detail" className="bg-[#171717]">Signature Full Detail</option>
+                    <option value="Ceramic Paint Protection" className="bg-[#171717]">Ceramic Paint Protection</option>
+                    <option value="Enhanced Services" className="bg-[#171717]">Enhanced Services</option>
                     <option value="Other" className="bg-[#171717]">Other / Not Sure</option>
                   </select>
                 </div>
 
                 <div className="space-y-3">
-                  <label htmlFor="message" className="text-[10px] uppercase tracking-[0.2em] text-[#d1d1d1]/50">Message</label>
+                  <label htmlFor="message" className="text-[10px] uppercase tracking-[0.2em] text-[#d1d1d1]/50">Write a message</label>
                   <textarea 
                     id="message" 
                     rows={4}
@@ -244,12 +255,12 @@ export default function Contact() {
                   className="btn-outline w-full mt-8 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
-                    <>
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      Sending...
-                    </>
+                     <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Submitting...
+                     </>
                   ) : (
-                    'Submit Request'
+                     'Submit'
                   )}
                 </button>
               </form>

@@ -45,7 +45,7 @@ export default function Navbar() {
           <img 
             src={settings?.logoUrl || "https://i.imgur.com/vQ18UQb.png"} 
             alt="Logo" 
-            className="h-10 md:h-12 object-contain transition-opacity group-hover:opacity-80 mix-blend-screen contrast-125 brightness-90 shadow-2xl" 
+            className="h-16 md:h-24 object-contain transition-opacity group-hover:opacity-80 mix-blend-screen contrast-125 brightness-90 shadow-2xl" 
             referrerPolicy="no-referrer"
           />
         </Link>
@@ -61,9 +61,9 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
-          <Link to="/contact" className="btn-primary ml-4">
+          <a href="https://app.urable.com/virtual-shop/Q6yNmIRJFJJUoAWylz2J" target="_blank" rel="noreferrer" className="btn-primary ml-4">
             Book Now
-          </Link>
+          </a>
         </nav>
 
         {/* Mobile Menu Toggle */}
@@ -110,13 +110,14 @@ export default function Navbar() {
                 exit={{ opacity: 0, y: 10 }}
                 transition={{ duration: 0.7, delay: navLinks.length * 0.1, ease: [0.16, 1, 0.3, 1] }}
               >
-                <Link
-                  to="/contact"
+                <a
+                  href="https://app.urable.com/virtual-shop/Q6yNmIRJFJJUoAWylz2J"
+                  target="_blank" rel="noreferrer"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="btn-primary mt-8"
                 >
                   Book Now
-                </Link>
+                </a>
               </motion.div>
             </motion.div>
           )}
