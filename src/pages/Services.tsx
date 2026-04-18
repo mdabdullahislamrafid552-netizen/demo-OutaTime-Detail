@@ -134,20 +134,22 @@ export default function Services() {
                     <h2 className="text-4xl md:text-5xl font-serif mb-4 tracking-tight">{service.title}</h2>
                     
                     {service.price && (
-                      <div className="text-xl text-white/90 font-light mb-6 border-l-2 border-white/20 pl-4 py-1">
+                      <div className="text-xl text-white/90 font-medium mb-8 border-l-2 border-white/50 pl-4 py-1">
                         {service.price}
                       </div>
                     )}
                     
-                    <p className="text-[#d1d1d1]/70 leading-relaxed mb-10 font-light text-lg">
-                      {service.description}
-                    </p>
+                    {service.description && (
+                      <p className="text-[#d1d1d1]/70 leading-relaxed mb-10 font-light text-lg">
+                        {service.description}
+                      </p>
+                    )}
                     
-                    <ul className="space-y-5 mb-12">
-                      {service.features.map((feature, i) => (
-                        <li key={i} className="flex items-start gap-4">
-                          <CheckCircle2 size={18} className="text-white/30 mt-1 shrink-0" />
-                          <span className="text-base text-[#d1d1d1]/80 font-light">{feature}</span>
+                    <ul className="space-y-4 mb-10 w-full">
+                      {(service.features || []).slice(0, 6).map((feature: string, i: number) => (
+                        <li key={i} className="flex items-center gap-4">
+                          <CheckCircle2 size={16} className="text-white/40 shrink-0" />
+                          <span className="text-base text-[#d1d1d1] font-light tracking-wide">{feature}</span>
                         </li>
                       ))}
                     </ul>

@@ -71,7 +71,7 @@ export default function Home() {
             initial={{ scale: 1.15 }}
             animate={{ scale: 1 }}
             transition={{ duration: 2.5, ease: "easeOut" }}
-            src={sHome.heroBg || "https://scontent.fdac3-2.fna.fbcdn.net/v/t39.30808-6/637986933_10231238088631296_5178247587738125061_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=2a1932&_nc_ohc=EhUAi3tyn4EQ7kNvwH0sSnS&_nc_oc=Adp-62SIXuujXXiIZTIS06Y_f47nsyfuCHtt9OVaMtlKSojFLf7tQVn0OJnY6L1V5LA&_nc_zt=23&_nc_ht=scontent.fdac3-2.fna&_nc_gid=FRqt54OMl59-C-bjVOOa7w&_nc_ss=7a389&oh=00_Af1c0FZcrNG_ab8Y-uceYh-7mxatXal_l6j8fe6EO00SXQ&oe=69E99C05"} 
+            src={sHome.heroBg || "https://lh3.googleusercontent.com/proxy/BbMFhuBN7a_vUeDMrGJjn0NvdTWBNVO_7FTnhrGbPREevothLfXYtZiOxk6MWy3UgQzmQR1SUGQLprMWU7Ul5Pe5OsZfG-mgF3z9Cn7eB4P3It7wzcF40mybmoozu4tFSMa-JXR4jlYqSMjOMmb5j1yN"} 
             alt="Luxury car detailing" 
             className="w-full h-full object-cover opacity-50"
             referrerPolicy="no-referrer"
@@ -144,14 +144,7 @@ export default function Home() {
       </section>
 
       {/* Enhanced Services / Add-ons Preview */}
-      <section className="py-32 bg-[#0a0a0a] border-y border-white/5 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[#0a0a0a]">
-          {/* Subtle animated background orbs */}
-          <div className="absolute top-0 right-1/4 w-96 h-96 bg-white/[0.02] rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s' }}></div>
-          <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-white/[0.015] rounded-full blur-3xl animate-pulse" style={{ animationDuration: '12s' }}></div>
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03]"></div>
-        </div>
-        
+      <section className="py-32 bg-[#0a0a0a] border-y border-white/5 relative">
         <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
           <div className="text-center mb-24">
             <motion.div
@@ -209,37 +202,21 @@ export default function Home() {
               <motion.div 
                 key={idx}
                 variants={{
-                  hidden: { opacity: 0, y: 40, scale: 0.95 },
-                  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 1, ease: [0.16,1,0.3,1] } }
+                  hidden: { opacity: 0, y: 30 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16,1,0.3,1] } }
                 }}
-                className="relative bg-[#111] bg-gradient-to-br from-[#1c1c1c] to-[#0a0a0a] border border-white/5 p-8 group hover:border-white/20 focus-within:border-white/20 transition-all duration-700 rounded-2xl overflow-hidden flex flex-col justify-between shadow-[0_4px_24px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.8)] hover:-translate-y-2"
+                className="bg-[#111] border border-white/5 p-8 transition-colors duration-500 hover:border-white/20 flex flex-col justify-between rounded-sm"
               >
-                {/* Metallic Top Sheen */}
-                <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-
-                {/* Animated Background Large Number */}
-                <div className="absolute -right-4 -bottom-6 text-[160px] font-black leading-none italic pointer-events-none select-none z-0 text-transparent bg-clip-text bg-gradient-to-b from-white/[0.04] to-transparent group-hover:from-white/[0.08] transition-all duration-700 group-hover:-translate-x-4 group-hover:-translate-y-4 group-hover:scale-110">
-                  0{idx + 1}
-                </div>
-                
-                <div className="relative z-10 w-full mb-10">
-                  <div className="flex items-center gap-4 mb-8 relative z-20">
-                    <span className="flex items-center justify-center w-10 h-10 rounded-full bg-white/[0.03] border border-white/10 text-white font-serif text-lg group-hover:bg-white group-hover:text-black group-hover:border-white transition-all duration-700 shadow-inner">
-                      {idx + 1}
-                    </span>
-                    <span className="text-[10px] uppercase font-bold tracking-[0.3em] text-[#d1d1d1]/50 group-hover:text-[#d1d1d1]/90 transition-colors duration-500">Phase 0{idx + 1}</span>
-                  </div>
-                  
-                  <h3 className="text-2xl font-serif text-white mb-4 pr-4 leading-snug group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-white/60 transition-all duration-500">{addon.title}</h3>
-                  <p className="text-[#d1d1d1]/60 text-sm leading-relaxed font-light group-hover:text-[#d1d1d1]/80 transition-colors duration-500 relative z-20">
+                <div className="w-full mb-8">
+                  <h3 className="text-xl font-serif text-white mb-4 pr-4 leading-snug">{addon.title}</h3>
+                  <p className="text-[#d1d1d1]/60 text-sm leading-relaxed font-light">
                     {addon.desc}
                   </p>
                 </div>
                 
-                <div className="relative z-10 mt-auto border-t border-white/5 pt-6 w-full transform transition-all duration-700">
-                  <div className="absolute top-0 left-0 w-0 h-[1px] bg-gradient-to-r from-white/30 to-transparent group-hover:w-full transition-all duration-1000 ease-[0.16,1,0.3,1]"></div>
-                  <a href="https://app.urable.com/virtual-shop/Q6yNmIRJFJJUoAWylz2J" target="_blank" rel="noreferrer" className="relative z-20 inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] font-bold text-white/40 group-hover:text-white transition-all duration-500 w-max">
-                    Explore <ArrowRight size={14} className="transform group-hover:translate-x-2 transition-transform duration-500" />
+                <div className="mt-auto border-t border-white/5 pt-6 w-full">
+                  <a href="https://app.urable.com/virtual-shop/Q6yNmIRJFJJUoAWylz2J" target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-[#d1d1d1]/80 hover:text-white transition-colors duration-300 group">
+                    Explore <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform duration-300" />
                   </a>
                 </div>
               </motion.div>
@@ -411,9 +388,14 @@ export default function Home() {
                       <div className="transform transition-transform duration-700 ease-[0.16,1,0.3,1] md:translate-y-12 group-hover:translate-y-0">
                         <h3 className="text-3xl md:text-4xl font-serif mb-2 text-white tracking-tight">{service.title}</h3>
                         {service.price && <div className="text-sm font-medium text-white/90 mb-4">{service.price}</div>}
-                        <p className="text-[#d1d1d1]/80 text-sm md:text-base leading-relaxed font-light md:opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 mb-6">
-                          {service.desc}
-                        </p>
+                        <ul className="space-y-2 mb-6 md:opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
+                          {(service.features || []).slice(0, 4).map((feature: string, idx: number) => (
+                            <li key={idx} className="flex items-center gap-2 text-[#d1d1d1]/80 text-sm font-light">
+                              <div className="w-1 h-1 rounded-full bg-white/50 shrink-0"></div>
+                              <span className="truncate">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
                         <a 
                           href="https://app.urable.com/virtual-shop/Q6yNmIRJFJJUoAWylz2J" target="_blank" rel="noreferrer"
                           className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-white border border-white/20 px-6 py-3 rounded-full hover:bg-white hover:text-black transition-colors duration-300 md:opacity-0 group-hover:opacity-100"

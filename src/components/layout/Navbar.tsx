@@ -45,7 +45,7 @@ export default function Navbar() {
           <img 
             src={settings?.logoUrl || "https://i.imgur.com/vQ18UQb.png"} 
             alt="Logo" 
-            className="h-16 md:h-24 object-contain transition-opacity group-hover:opacity-80 mix-blend-screen contrast-125 brightness-90 shadow-2xl" 
+            className="h-10 md:h-12 object-contain transition-opacity group-hover:opacity-80 mix-blend-screen contrast-125 brightness-90 shadow-2xl" 
             referrerPolicy="no-referrer"
           />
         </Link>

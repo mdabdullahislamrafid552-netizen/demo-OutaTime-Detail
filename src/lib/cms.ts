@@ -42,9 +42,15 @@ const defaultServices = [
     id: 'exterior-detail',
     title: 'Exterior Detail',
     subtitle: 'Gloss & Protection',
-    desc: 'Transform your vehicle with our Exterior Detail service, where we ensure a pristine finish with a full wash using spot-free water for long-lasting wax protection. Every inch of your car will shine, with meticulous attention given to cleaning all glass surfaces. Experience the difference of expert car detailing that prioritizes quality and care—because we believe in attention to detail, every time.',
-    description: 'Transform your vehicle with our Exterior Detail service, where we ensure a pristine finish with a full wash using spot-free water for long-lasting wax protection. Every inch of your car will shine, with meticulous attention given to cleaning all glass surfaces. Experience the difference of expert car detailing that prioritizes quality and care—because we believe in attention to detail, every time.',
-    features: ['Spot-free water wash', 'Long-lasting wax protection', 'Glass cleaning', 'Meticulous attention to detail'],
+    description: '',
+    price: 'Starts from $150',
+    features: [
+      'Spot-free DI water wash',
+      'Long-lasting wax protection',
+      'Wheel & tire deep clean',
+      'Streak-free glass cleaning',
+      'Plastics & trim dressing'
+    ],
     icon: 'Droplets',
     img: 'https://www.apexautoperformance.com/wp-content/uploads/2023/02/What-is-Exterior-Detailing-of-a-Car.jpg',
     order: 0
@@ -53,9 +59,15 @@ const defaultServices = [
     id: 'interior-detail',
     title: 'Interior Detail',
     subtitle: 'Sanitize & Restore',
-    desc: 'Interior cleaning where it matters. Seats, carpets, doors, dash, vents, floor mats and glass. The kind of clean that makes you actually want to get in your car!',
-    description: 'Interior cleaning where it matters. Seats, carpets, doors, dash, vents, floor mats and glass. The kind of clean that makes you actually want to get in your car!',
-    features: ['Seats and carpets', 'Doors and dash', 'Vents and floor mats', 'Glass cleaning'],
+    description: '',
+    price: 'Starts from $175',
+    features: [
+      'Deep vacuuming of seats & carpets',
+      'Hot water extraction for stains',
+      'Interior door & dash sanitization',
+      'Vent cleaning & deodorizing',
+      'Streak-free interior glass'
+    ],
     icon: 'Wind',
     img: 'https://shineprosnh.com/wp-content/uploads/2024/07/interior-detail.jpeg',
     order: 1
@@ -64,9 +76,15 @@ const defaultServices = [
     id: 'full-detail',
     title: 'Full Detail',
     subtitle: 'The Complete Reset',
-    desc: 'The complete reset! Every surface, inside and out. Paint is decontaminated, the interior deep cleaned, trim restored. Get your car looking better than new!',
-    description: 'The complete reset! Every surface, inside and out. Paint is decontaminated, the interior deep cleaned, trim restored. Get your car looking better than new!',
-    features: ['Every surface inside and out', 'Paint decontamination', 'Interior deep clean', 'Trim restoration'],
+    description: '',
+    price: 'Starts from $300',
+    features: [
+      'Complete exterior & interior service',
+      'Paint decontamination (clay bar)',
+      'High-grade paint sealant',
+      'Deep interior shampoo & extraction',
+      'Engine bay light wipedown'
+    ],
     icon: 'Star',
     img: 'https://sharpdetailsilverspring.com/images/car2.jpg',
     order: 2
@@ -75,9 +93,15 @@ const defaultServices = [
     id: 'date-night-package',
     title: 'Date Night Package',
     subtitle: 'Quick & Clean',
-    desc: 'Looking to have a quick detail for that special occasion? This interior/exterior service offers an exterior wash, tires/wheels cleaned and vehicle dried off. Interior will include a quick vacuum, wipe down of all surfaces and glass cleaned.',
-    description: 'Looking to have a quick detail for that special occasion? This interior/exterior service offers an exterior wash, tires/wheels cleaned and vehicle dried off. Interior will include a quick vacuum, wipe down of all surfaces and glass cleaned.',
-    features: ['Exterior wash', 'Tires/wheels cleaned', 'Vehicle dried off', 'Quick interior vacuum and wipe down'],
+    description: '',
+    price: 'Starts from $100',
+    features: [
+      'Express exterior wash & dry',
+      'Wheel face cleaning & tire shine',
+      'Quick interior vacuum',
+      'Surface wipe down',
+      'Glass cleaning'
+    ],
     icon: 'Sparkles',
     img: 'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&q=80&w=800',
     order: 3
@@ -86,9 +110,15 @@ const defaultServices = [
     id: 'ceramic-coating',
     title: 'Ceramic Coating',
     subtitle: 'Permanent Bond',
-    desc: 'The last protection your paint will need. A permanent bond coating that repels water, resists contamination, and keeps your car looking freshly detailed for years, not weeks! Service is applied by hand, paint surface thoroughly and properly prepped to ensure the coating properly bonds to the paint.',
-    description: 'The last protection your paint will need. A permanent bond coating that repels water, resists contamination, and keeps your car looking freshly detailed for years, not weeks! Service is applied by hand, paint surface thoroughly and properly prepped to ensure the coating properly bonds to the paint.',
-    features: ['Permanent bond coating', 'Repels water', 'Resists contamination', 'Applied by hand with thorough prep'],
+    description: '',
+    price: 'Starts from $650',
+    features: [
+      'Multi-year paint protection',
+      'Intense hydrophobic water beading',
+      'Paint correction & thorough prep',
+      'Resists dirt & contamination',
+      'Extreme gloss finish'
+    ],
     icon: 'ShieldCheck',
     img: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&q=80&w=800',
     order: 4

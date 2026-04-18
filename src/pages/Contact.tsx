@@ -75,7 +75,7 @@ export default function Contact() {
                 transition={{ duration: 1, ease, delay: 0.2 }}
                 className="text-[#d1d1d1]/60 max-w-2xl mx-auto text-lg font-light leading-relaxed"
               >
-                Ready to restore your vehicle's finish? We proudly offer premium Mobile Detailing featuring <strong className="text-white font-medium">100% DI Spot Free Water</strong> to guarantee a flawless, sun-safe shine. Contact us below!
+                Ready to restore your vehicle's finish? Fill out the form below and we'll get back to you with a custom quote.
               </motion.p>
             </div>
           </div>
@@ -96,7 +96,7 @@ export default function Contact() {
                   </div>
                   <div className="pt-1">
                     <h4 className="text-[10px] uppercase tracking-[0.2em] text-[#d1d1d1]/50 mb-2">Phone</h4>
-                    <a href={`tel:${settings?.contact?.phone || '469-815-1949'}`} className="text-xl text-white hover:text-[#d1d1d1] transition-colors font-light tracking-wide">{settings?.contact?.phone || '469-815-1949'}</a>
+                    <a href={`tel:${settings?.contact?.phone || '555-0123'}`} className="text-xl text-white hover:text-[#d1d1d1] transition-colors font-light tracking-wide">{settings?.contact?.phone || '555-0123'}</a>
                   </div>
                 </div>
 
@@ -106,7 +106,7 @@ export default function Contact() {
                   </div>
                   <div className="pt-1">
                     <h4 className="text-[10px] uppercase tracking-[0.2em] text-[#d1d1d1]/50 mb-2">Email</h4>
-                    <a href={`mailto:${settings?.contact?.email || 'martin@outatimedetail.com'}`} className="text-lg text-white hover:text-[#d1d1d1] transition-colors font-light tracking-wide">{settings?.contact?.email || 'martin@outatimedetail.com'}</a>
+                    <a href={`mailto:${settings?.contact?.email || 'contact@example.com'}`} className="text-lg text-white hover:text-[#d1d1d1] transition-colors font-light tracking-wide">{settings?.contact?.email || 'contact@example.com'}</a>
                   </div>
                 </div>
 
@@ -117,8 +117,8 @@ export default function Contact() {
                   <div className="pt-1">
                     <h4 className="text-[10px] uppercase tracking-[0.2em] text-[#d1d1d1]/50 mb-2">Address</h4>
                     <p className="text-lg text-white font-light tracking-wide leading-relaxed">
-                      1401 Rolling Hills<br/>
-                      Celina, TX 75009
+                      Serving Collin County<br/>
+                      TX & Surrounding Areas
                     </p>
                   </div>
                 </div>
@@ -206,7 +206,7 @@ export default function Contact() {
                   <input 
                     type="tel" 
                     id="phone" 
-                    value={formData.phone || ''}
+                    value={(formData as any).phone || ''}
                     onChange={handleChange}
                     className="w-full bg-transparent border-b border-white/10 px-0 py-3 text-white focus:outline-none focus:border-white/50 transition-colors font-light"
                     placeholder="(555) 555-5555"
