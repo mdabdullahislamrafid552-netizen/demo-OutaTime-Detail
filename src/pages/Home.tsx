@@ -93,7 +93,7 @@ export default function Home() {
             </motion.div>
           </div>
           
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif mb-8 leading-[1.1] tracking-tight text-left">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-serif mb-8 leading-[1.1] tracking-tight text-left">
             <div className="overflow-hidden">
               <motion.span 
                 initial={{ y: "100%" }}
@@ -104,7 +104,7 @@ export default function Home() {
                 {sHome.heroTitle1 || 'Premium Mobile'}
               </motion.span>
             </div>
-            <div className="overflow-hidden pb-4">
+            <div className="overflow-hidden pb-4 leading-[0.9]">
               <motion.span 
                 initial={{ y: "100%" }}
                 animate={{ y: 0 }}
@@ -144,9 +144,9 @@ export default function Home() {
       </section>
 
       {/* Enhanced Services / Add-ons Preview */}
-      <section className="py-32 bg-[#0a0a0a] border-y border-white/5 relative">
+      <section className="py-20 md:py-32 bg-[#0a0a0a] border-y border-white/5 relative">
         <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-          <div className="text-center mb-24">
+          <div className="text-center mb-16 md:mb-24">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -165,7 +165,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1, duration: 1, ease: [0.16,1,0.3,1] }}
-              className="text-4xl md:text-6xl font-serif tracking-tight"
+              className="text-3xl sm:text-4xl md:text-6xl font-serif tracking-tight"
             >
               Enhanced Sequence
             </motion.h2>
@@ -179,7 +179,7 @@ export default function Home() {
               hidden: { opacity: 0 },
               visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
             }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
           >
             {[
               {
@@ -226,12 +226,12 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section className="pt-32 pb-32 lg:pt-40 bg-[#171717]">
+      <section className="py-20 md:py-32 lg:py-40 bg-[#171717]">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="flex flex-col lg:grid lg:grid-cols-2 gap-0 lg:gap-20 items-center relative">
             
             {/* Image (Mobile: Top Left, Desktop: Right) */}
-            <div className="w-[85%] sm:w-[70%] lg:w-full self-start lg:self-auto order-1 lg:order-2 z-0">
+            <div className="w-[90%] sm:w-[70%] lg:w-full self-start lg:self-auto order-1 lg:order-2 z-0">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -255,23 +255,23 @@ export default function Home() {
             </div>
 
             {/* Text (Mobile: Bottom Right overlapping, Desktop: Left) */}
-            <div className="w-[90%] sm:w-[80%] lg:w-full self-end lg:self-auto order-2 lg:order-1 -mt-24 sm:-mt-32 lg:mt-0 relative z-10">
+            <div className="w-[95%] sm:w-[85%] lg:w-full self-end lg:self-auto order-2 lg:order-1 -mt-20 sm:-mt-32 lg:mt-0 relative z-10">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 1.2, ease }}
-                className="bg-[#171717] lg:bg-transparent p-6 sm:p-8 lg:p-0 shadow-2xl lg:shadow-none border border-white/5 lg:border-none"
+                className="bg-[#171717] lg:bg-transparent p-6 sm:p-10 lg:p-0 shadow-2xl lg:shadow-none border border-white/5 lg:border-none rounded-sm"
               >
                 <span className="text-[10px] uppercase tracking-[0.3em] text-[#d1d1d1]/50 mb-4 lg:mb-6 block">
                   {sAbout.eyebrow || 'Customer Focused'}
                 </span>
-                <h2 className="text-4xl sm:text-5xl md:text-7xl font-serif mb-6 lg:mb-10 leading-[1.1] tracking-tight">
+                <h2 className="text-3xl sm:text-5xl md:text-7xl font-serif mb-6 lg:mb-10 leading-[1.1] tracking-tight">
                   {sAbout.title1 || 'Detailing'} <br/>
                   <span className="italic text-white/90">{sAbout.title2 || 'Services.'}</span>
                 </h2>
                 
-                <div className="space-y-6 lg:space-y-8 text-[#d1d1d1]/70 font-light leading-relaxed text-base lg:text-lg">
+                <div className="space-y-6 lg:space-y-8 text-[#d1d1d1]/70 font-light leading-relaxed text-sm sm:text-base lg:text-lg">
                   <p>
                     {sAbout.p1 || "Outatime Detailing LLC is your premier destination for top-quality car detailing services that will breathe new life into your vehicle. We are committed to upholding the highest standards of professionalism and are fully insured for your peace of mind. We take pride in using premium, eco-friendly products to ensure a flawless finish that exceeds your expectations."}
                   </p>
@@ -313,16 +313,16 @@ export default function Home() {
       </section>
 
       {/* Services Overview */}
-      <section className="py-32 bg-[#171717]">
+      <section className="py-20 md:py-32 bg-[#171717]">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-20 gap-8">
             <div className="overflow-hidden">
               <motion.h2 
                 initial={{ y: "100%" }}
                 whileInView={{ y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 1, ease }}
-                className="text-4xl md:text-6xl font-serif mb-6 tracking-tight"
+                className="text-3xl sm:text-4xl md:text-6xl font-serif mb-6 tracking-tight"
               >
                 Masterful Care
               </motion.h2>
@@ -331,7 +331,7 @@ export default function Home() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: 0.3 }}
-                className="text-[#d1d1d1]/60 max-w-md text-lg font-light"
+                className="text-[#d1d1d1]/60 max-w-md text-base sm:text-lg font-light"
               >
                 Precision detailing tailored to restore and protect your vehicle's finish.
               </motion.p>
@@ -354,7 +354,7 @@ export default function Home() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="md:hidden flex items-center gap-3 text-[#d1d1d1]/40 text-[10px] uppercase tracking-[0.3em] mb-6 ml-2"
+              className="lg:hidden flex items-center gap-3 text-[#d1d1d1]/40 text-[10px] uppercase tracking-[0.3em] mb-6 ml-2"
             >
               <ArrowRight size={12} className="animate-pulse" /> Swipe to explore
             </motion.div>
@@ -369,9 +369,9 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ delay: i * 0.15, duration: 1.2, ease }}
-                  className="group relative w-[85vw] sm:w-[400px] md:w-[calc(33.333%-1rem)] shrink-0 snap-center overflow-hidden rounded-sm bg-[#111] border border-white/5"
+                  className="group relative w-[80vw] sm:w-[400px] md:w-[calc(33.333%-1rem)] shrink-0 snap-center overflow-hidden rounded-sm bg-[#111] border border-white/5"
                 >
-                  <div className="relative h-[500px] md:h-[600px] w-full overflow-hidden">
+                  <div className="relative h-[450px] sm:h-[500px] md:h-[600px] w-full overflow-hidden">
                     <img 
                       src={service.img} 
                       alt={service.title} 
@@ -414,16 +414,16 @@ export default function Home() {
       </section>
 
       {/* Before / After Preview */}
-      <section className="py-32 bg-[#111] border-y border-white/5">
+      <section className="py-20 md:py-32 bg-[#111] border-y border-white/5">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-20">
+          <div className="text-center mb-16 md:mb-20">
             <div className="overflow-hidden mb-4">
               <motion.h2 
                 initial={{ y: "100%" }}
                 whileInView={{ y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, ease }}
-                className="text-4xl md:text-6xl font-serif tracking-tight"
+                className="text-3xl sm:text-4xl md:text-6xl font-serif tracking-tight"
               >
                 The Transformation
               </motion.h2>
@@ -433,19 +433,19 @@ export default function Home() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.2 }}
-              className="text-[#d1d1d1]/60 max-w-lg mx-auto text-lg font-light"
+              className="text-[#d1d1d1]/60 max-w-lg mx-auto text-base sm:text-lg font-light"
             >
               Witness the difference of professional paint reconditioning and detailing.
             </motion.p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1.2, ease }}
-              className="relative h-[60vh] md:h-[80vh] group overflow-hidden rounded-sm"
+              className="relative h-[50vh] sm:h-[60vh] md:h-[80vh] group overflow-hidden rounded-sm"
             >
               <img 
                 src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=1000" 
@@ -454,9 +454,9 @@ export default function Home() {
                 referrerPolicy="no-referrer"
               />
               <div className="absolute inset-0 bg-black/40"></div>
-              <div className="absolute bottom-10 left-10">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-white/50 mb-3 block">The Condition</span>
-                <span className="font-serif text-4xl text-white/80">Before</span>
+              <div className="absolute bottom-6 left-6 sm:bottom-10 sm:left-10">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-white/50 mb-2 sm:mb-3 block">The Condition</span>
+                <span className="font-serif text-2xl sm:text-4xl text-white/80">Before</span>
               </div>
             </motion.div>
             <motion.div 
@@ -464,7 +464,7 @@ export default function Home() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1.2, ease, delay: 0.2 }}
-              className="relative h-[60vh] md:h-[80vh] group overflow-hidden rounded-sm"
+              className="relative h-[50vh] sm:h-[60vh] md:h-[80vh] group overflow-hidden rounded-sm"
             >
               <img 
                 src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&q=80&w=1000" 
@@ -473,9 +473,9 @@ export default function Home() {
                 referrerPolicy="no-referrer"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-              <div className="absolute bottom-10 left-10">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-white/80 mb-3 block">The Result</span>
-                <span className="font-serif text-4xl text-white">After</span>
+              <div className="absolute bottom-6 left-6 sm:bottom-10 sm:left-10">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-white/80 mb-2 sm:mb-3 block">The Result</span>
+                <span className="font-serif text-2xl sm:text-4xl text-white">After</span>
               </div>
             </motion.div>
           </div>

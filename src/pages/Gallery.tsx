@@ -54,14 +54,14 @@ export default function Gallery() {
   return (
     <div className="w-full min-h-screen bg-[#171717]">
       {/* Header */}
-      <section className="pt-40 pb-24 bg-[#111] border-b border-white/5">
+      <section className="pt-32 sm:pt-40 pb-20 sm:pb-24 bg-[#111] border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 md:px-12 text-center">
           <div className="overflow-hidden mb-6">
             <motion.h1 
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 1.2, ease }}
-              className="text-5xl md:text-7xl font-serif tracking-tight"
+              className="text-4xl sm:text-5xl md:text-7xl font-serif tracking-tight"
             >
               The <span className="italic text-white/90">Gallery</span>
             </motion.h1>
@@ -71,7 +71,7 @@ export default function Gallery() {
               initial={{ y: "100%", opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 1, ease, delay: 0.2 }}
-              className="text-[#d1d1d1]/60 max-w-2xl mx-auto text-lg font-light leading-relaxed"
+              className="text-[#d1d1d1]/60 max-w-2xl mx-auto text-base sm:text-lg font-light leading-relaxed px-4"
             >
               A showcase of our dedication to perfection. Real results from vehicles in Collin County.
             </motion.p>
@@ -80,9 +80,9 @@ export default function Gallery() {
       </section>
 
       {/* Masonry-style Grid */}
-      <section className="py-32">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[350px]">
+      <section className="py-20 md:py-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 auto-rows-[300px] sm:auto-rows-[350px]">
             {images.map((img, i) => (
               <motion.div
                 key={img.id || i}

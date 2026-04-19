@@ -16,11 +16,11 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 mb-24 relative z-10">
           <div className="lg:col-span-4">
-            <Link to="/" className="inline-block mb-8 group">
+            <Link to="/" className="inline-block mb-6 sm:mb-8 group">
               <img 
                 src="https://i.imgur.com/vQ18UQb.png" 
                 alt="OutaTime Detail Logo" 
-                className="h-32 md:h-48 object-contain transition-opacity group-hover:opacity-80 mix-blend-screen contrast-125 brightness-90" 
+                className="h-24 sm:h-32 md:h-48 object-contain transition-opacity group-hover:opacity-80 mix-blend-screen contrast-125 brightness-90" 
                 referrerPolicy="no-referrer"
               />
             </Link>

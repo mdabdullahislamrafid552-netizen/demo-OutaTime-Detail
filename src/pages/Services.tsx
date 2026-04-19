@@ -68,14 +68,14 @@ export default function Services() {
   return (
     <div className="w-full">
       {/* Header */}
-      <section className="pt-40 pb-24 bg-[#111] border-b border-white/5">
+      <section className="pt-32 sm:pt-40 pb-20 sm:pb-24 bg-[#111] border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 md:px-12 text-center">
           <div className="overflow-hidden mb-6">
             <motion.h1 
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 1.2, ease }}
-              className="text-5xl md:text-7xl font-serif tracking-tight"
+              className="text-4xl sm:text-5xl md:text-7xl font-serif tracking-tight"
             >
               Our <span className="italic text-white/90">Services</span>
             </motion.h1>
@@ -94,34 +94,34 @@ export default function Services() {
       </section>
 
       {/* Services List */}
-      <section className="py-32 bg-[#171717]">
+      <section className="py-20 md:py-32 bg-[#171717]">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="space-y-40">
+          <div className="space-y-24 sm:space-y-32 md:space-y-40">
             {services.map((service, index) => (
               <div 
                 key={service.id} 
                 id={service.id}
-                className={`flex flex-col ${index % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-16 lg:gap-24 items-center`}
+                className={`flex flex-col ${index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-10 sm:gap-16 lg:gap-24 items-center`}
               >
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.95 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 1.2, ease }}
-                  className="w-full md:w-1/2"
+                  className="w-full lg:w-1/2"
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-sm group">
+                  <div className="relative aspect-[4/3] sm:aspect-video lg:aspect-[4/3] overflow-hidden rounded-sm group">
                     <img 
-                      src={service.img} 
-                      alt={service.title} 
-                      className="w-full h-full object-cover transition-transform duration-[2s] ease-[0.16,1,0.3,1] group-hover:scale-105"
-                      referrerPolicy="no-referrer"
+                       src={service.img} 
+                       alt={service.title} 
+                       className="w-full h-full object-cover transition-transform duration-[2s] ease-[0.16,1,0.3,1] group-hover:scale-105"
+                       referrerPolicy="no-referrer"
                     />
                     <div className="absolute inset-0 bg-black/10 transition-colors duration-700 group-hover:bg-transparent"></div>
                   </div>
                 </motion.div>
 
-                <div className="w-full md:w-1/2">
+                <div className="w-full lg:w-1/2 text-left">
                   <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -131,30 +131,30 @@ export default function Services() {
                     <span className="text-[10px] uppercase tracking-[0.3em] text-[#d1d1d1]/50 mb-4 block">
                       {service.subtitle}
                     </span>
-                    <h2 className="text-4xl md:text-5xl font-serif mb-4 tracking-tight">{service.title}</h2>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif mb-4 tracking-tight">{service.title}</h2>
                     
                     {service.price && (
-                      <div className="text-xl text-white/90 font-medium mb-8 border-l-2 border-white/50 pl-4 py-1">
+                      <div className="text-lg sm:text-xl text-white/90 font-medium mb-6 sm:mb-8 border-l-2 border-white/50 pl-4 py-1">
                         {service.price}
                       </div>
                     )}
                     
                     {service.description && (
-                      <p className="text-[#d1d1d1]/70 leading-relaxed mb-10 font-light text-lg">
+                      <p className="text-[#d1d1d1]/70 leading-relaxed mb-8 sm:mb-10 font-light text-base sm:text-lg">
                         {service.description}
                       </p>
                     )}
                     
-                    <ul className="space-y-4 mb-10 w-full">
+                    <ul className="space-y-3 sm:space-y-4 mb-10 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-x-6">
                       {(service.features || []).slice(0, 6).map((feature: string, i: number) => (
-                        <li key={i} className="flex items-center gap-4">
+                        <li key={i} className="flex items-center gap-3">
                           <CheckCircle2 size={16} className="text-white/40 shrink-0" />
-                          <span className="text-base text-[#d1d1d1] font-light tracking-wide">{feature}</span>
+                          <span className="text-sm sm:text-base text-[#d1d1d1] font-light tracking-wide">{feature}</span>
                         </li>
                       ))}
                     </ul>
 
-                    <a href="https://app.urable.com/virtual-shop/Q6yNmIRJFJJUoAWylz2J" target="_blank" rel="noreferrer" className="btn-outline inline-block">
+                    <a href="https://app.urable.com/virtual-shop/Q6yNmIRJFJJUoAWylz2J" target="_blank" rel="noreferrer" className="btn-outline w-full sm:w-auto text-center block sm:inline-block">
                       Request Quote
                     </a>
                   </motion.div>

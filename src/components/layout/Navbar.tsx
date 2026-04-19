@@ -83,21 +83,22 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, transition: { delay: 0.2, duration: 0.5 } }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed inset-0 bg-[#171717]/95 backdrop-blur-3xl z-40 flex flex-col items-center justify-center gap-8"
+              className="fixed inset-0 bg-[#171717]/98 backdrop-blur-3xl z-40 flex flex-col items-center justify-center gap-6 px-6"
             >
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.name}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
-                  transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-full text-center"
                 >
                   <Link
                     to={link.path}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`text-4xl font-serif tracking-wide transition-colors duration-500 ${
-                      location.pathname === link.path ? 'text-white italic' : 'text-[#d1d1d1]/50 hover:text-white'
+                    className={`text-3xl sm:text-4xl font-serif tracking-wide transition-all duration-500 block py-2 ${
+                      location.pathname === link.path ? 'text-white italic translate-x-1' : 'text-[#d1d1d1]/40 hover:text-white'
                     }`}
                   >
                     {link.name}
@@ -105,20 +106,25 @@ export default function Navbar() {
                 </motion.div>
               ))}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                transition={{ duration: 0.7, delay: navLinks.length * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.6, delay: navLinks.length * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                className="w-full max-w-[280px] mt-6"
               >
                 <a
                   href="https://app.urable.com/virtual-shop/Q6yNmIRJFJJUoAWylz2J"
                   target="_blank" rel="noreferrer"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="btn-primary mt-8"
+                  className="btn-primary w-full text-center py-5"
                 >
                   Book Now
                 </a>
               </motion.div>
+              
+              {/* Decorative elements for mobile menu */}
+              <div className="absolute top-1/4 -left-12 w-64 h-64 bg-white/5 rounded-full blur-3xl -z-10 animate-pulse"></div>
+              <div className="absolute bottom-1/4 -right-12 w-48 h-48 bg-white/5 rounded-full blur-3xl -z-10 animate-pulse" style={{ animationDelay: '1s' }}></div>
             </motion.div>
           )}
         </AnimatePresence>

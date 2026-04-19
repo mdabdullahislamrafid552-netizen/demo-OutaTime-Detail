@@ -138,9 +138,9 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="glass-panel p-10 rounded-sm">
-                <h4 className="font-serif text-2xl mb-4 text-white tracking-tight">Instant Booking</h4>
-                <p className="text-[#d1d1d1]/60 text-sm mb-8 leading-relaxed font-light">
+              <div className="glass-panel p-6 sm:p-10 rounded-sm">
+                <h4 className="font-serif text-xl sm:text-2xl mb-4 text-white tracking-tight">Instant Booking</h4>
+                <p className="text-[#d1d1d1]/60 text-xs sm:text-sm mb-8 leading-relaxed font-light">
                   For the fastest service, use our integrated Urable booking system to select your package and find an available time slot.
                 </p>
                 <a href="https://app.urable.com/virtual-shop/Q6yNmIRJFJJUoAWylz2J" target="_blank" rel="noreferrer" className="btn-primary w-full text-center block">
@@ -154,11 +154,11 @@ export default function Contact() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, ease, delay: 0.4 }}
-              className="bg-[#171717] p-10 md:p-12 border border-white/5 rounded-sm relative overflow-hidden"
+              className="bg-[#171717] p-6 sm:p-10 md:p-12 border border-white/5 rounded-sm relative overflow-hidden"
             >
-              <h3 className="text-3xl font-serif mb-10 text-white tracking-tight">Send a Message</h3>
+              <h3 className="text-2xl sm:text-3xl font-serif mb-8 md:mb-10 text-white tracking-tight">Send a Message</h3>
               
-              <form className="space-y-8" onSubmit={handleSubmit}>
+              <form className="space-y-6 md:space-y-8" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-3">
                     <label htmlFor="firstName" className="text-[10px] uppercase tracking-[0.2em] text-[#d1d1d1]/50">First Name</label>
